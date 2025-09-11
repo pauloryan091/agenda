@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ec4899">
+    <meta name="description" content="Planner pessoal da Ana - Organize seu dia com amor">
+    <title>Planner da carollina 💖</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <style>
+        /* Variáveis e Reset */
+        :root {
+            --rosa-principal: #ec4899;
+            --rosa-claro: #fbcfe8;
+            --rosa-escuro: #db2777;
+            --lilas: #a855f7;
+            --lilas-claro: #e9d5ff;
+            --branco: #ffffff;
+            --cinza-claro: #f8fafc;
+            --cinza: #94a3b8;
+            --cinza-escuro: #334155;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --borda: 1px solid #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, var(--rosa-claro) 0%, var(--lilas-claro) 100%);
+            min-height: 100vh;
+            color: var(--cinza-escuro);
+            line-height: 1.6;
+        }
+
+        /* Layout Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--sombra);
+            text-align: center;
+        }
+
+        .header-content h1 {
+            color: var(--rosa-principal);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .header-content p {
+            color: var(--cinza);
+            font-size: 1rem;
+        }
+
+        .date-display {
+            background: var(--rosa-claro);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-top: 0.5rem;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        /* Navegação */
+        nav {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--sombra);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            background: var(--branco);
+            border: var(--borda);
+            border-radius: 15px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-btn.active {
+            background: var(--rosa-principal);
+            color: var(--branco);
+            border-color: var(--rosa-principal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .nav-btn:hover:not(.active) {
+            border-color: var(--rosa-principal);
+            transform: translateY(-1px);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--sombra);
+            min-height: 400px;
+        }
+
+        /* Mensagem Motivacional */
+        .motivational-message {
+            background: linear-gradient(135deg, var(--rosa-principal), var(--lilas));
+            color: var(--branco);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: var(--sombra);
+        }
+
+        /* Formulários */
+        .form-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        input, select, textarea {
+            flex: 1;
+            padding: 0.8rem;
+            border: var(--borda);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--cinza-claro);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--rosa-principal);
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+        }
+
+        button {
+            background: var(--rosa-principal);
+            color: var(--branco);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--rosa-escuro);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Cards e Listas */
+        .task-list, .goal-list, .shopping-list {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .task-item, .goal-item, .shopping-item {
+            background: var(--cinza-claro);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--rosa-principal);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .goal-item {
+            border-left-color: var(--lilas);
+        }
+
+        .shopping-item {
+            border-left-color: #10b981;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--cinza);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox.checked {
+            background: var(--rosa-principal);
+            border-color: var(--rosa-principal);
+            color: var(--branco);
+        }
+
+        .task-text {
+            flex: 1;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: var(--cinza);
+        }
+
+        .category-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .category-trabalho {
+            background: var(--rosa-claro);
+            color: var(--rosa-escuro);
+        }
+
+        .category-pessoal {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .category-casa {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* Progresso de Metas */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--cinza-claro);
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--rosa-principal), var(--lilas));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Agenda */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 10px;
+            background: var(--cinza-claro);
+            font-weight: 500;
+        }
+
+        .calendar-day.header {
+            background: transparent;
+            font-weight: 600;
+            color: var(--cinza-escuro);
+        }
+
+        .calendar-day.today {
+            background: var(--rosa-principal);
+            color: var(--branco);
+        }
+
+        .calendar-day.event {
+            background: var(--lilas-claro);
+            color: var(--lilas);
+        }
+
+        /* Footer e Mensagens */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--cinza);
+        }
+
+        .heart-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--rosa-principal);
+            color: var(--branco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--cinza);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .form-group {
+                flex-direction: column;
+            }
+            
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+            
+            .heart-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .header-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 0.8rem 0.3rem;
+            }
+            
+            .nav-icon {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cinza-claro);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--rosa-principal);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--rosa-escuro);
+        }
+        .calendar-day.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.calendar-day.clickable:hover {
+  background-color: var(--rosa-claro);
+  border-radius: 12px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>🌸 Planner da Carollina 💖</h1>
+                <p>Nosso cantinho de organização</p>
+                <div class="date-display" id="current-date"></div>
+            </div>
+        </header>
+
+        <!-- Navegação -->
+        <nav>
+            <div class="nav-grid">
+                <button class="nav-btn active" data-view="agenda">
+                    <span class="nav-icon">📅</span>
+                    Agenda
+                </button>
+                <button class="nav-btn" data-view="tarefas">
+                    <span class="nav-icon">✔️</span>
+                    Tarefas
+                </button>
+                <button class="nav-btn" data-view="metas">
+                    <span class="nav-icon">🎯</span>
+                    Metas
+                </button>
+                <button class="nav-btn" data-view="compras">
+                    <span class="nav-icon">🛒</span>
+                    Compras
+                </button>
+            </div>
+        </nav>
+<!-- Modal de Evento -->
+<div id="event-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeEventModal()">×</button>
+    <h2>Adicionar Evento</h2>
+    <form id="event-form">
+      <div class="form-group">
+        <label>Data:</label>
+        <input type="date" id="event-date" required>
+      </div>
+      <div class="form-group">
+        <label>Hora:</label>
+        <input type="time" id="event-time" required>
+      </div>
+      <div class="form-group">
+        <label>Título:</label>
+        <input type="text" id="event-title" placeholder="Ex: Reunião" required>
+      </div>
+      <div class="form-group">
+        <label>Categoria:</label>
+        <select id="event-category">
+          <option value="trabalho">💻 Trabalho</option>
+          <option value="pessoal">🌸 Pessoal</option>
+          <option value="casa">🏡 Casa</option>
+        </select>
+      </div>
+      <button type="submit">Salvar Evento</button>
+    </form>
+  </div>
+</div>
+
+        <!-- Mensagem Motivacional -->
+        <div class="motivational-message" id="motivational-message">
+            💕 Respira, você é incrível!
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Agenda -->
+            <div id="agenda-view" class="view-content">
+                <h2>📅 Agenda do Mês</h2>
+                <div class="calendar" id="calendar"></div>
+                
+                <h3>📋 Compromissos de Hoje</h3>
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="checkbox" data-id="event1">✓</div>
+                        <div class="task-text">Almoço com amigas - 12:00</div>
+                        <span class="category-badge category-pessoal">Pessoal</span>
+                    </div>
+                    <div class="task-item">
+                        <div class="checkbox" data-id="event2">✓</div>
+                        <div class="task-text">Reunião importante - 15:00</div>
+                        <span class="category-badge category-trabalho">Trabalho</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarefas -->
+            <div id="tarefas-view" class="view-content" style="display: none;">
+                <h2>✅ Lista de Tarefas</h2>
+                <div class="form-group">
+                    <input type="text" id="new-task" placeholder="Nova tarefa...">
+                    <select id="task-category">
+                        <option value="trabalho">💻 Trabalho</option>
+                        <option value="pessoal">🌸 Pessoal</option>
+                        <option value="casa">🏡 Casa</option>
+                    </select>
+                    <button onclick="addTask()">Adicionar</button>
+                </div>
+                <div class="task-list" id="tasks-list"></div>
+            </div>
+
+            <!-- Metas -->
+            <div id="metas-view" class="view-content" style="display: none;">
+                <h2>🎯 Metas da Semana</h2>
+                <div class="form-group">
+                    <input type="text" id="new-goal" placeholder="Nova meta...">
+                    <button onclick="addGoal()">Adicionar</button>
+                </div>
+                <div class="goal-list" id="goals-list"></div>
+            </div>
+
+            <!-- Compras -->
+            <div id="compras-view" class="view-content" style="display: none;">
+                <h2>🛒 Lista de Compras</h2>
+                <div class="form-group">
+                    <input type="text" id="new-item" placeholder="Novo item...">
+                    <select id="item-category">
+                        <option value="mercado">🛒 Mercado</option>
+                        <option value="casa">🏠 Casa</option>
+                        <option value="pessoal">🌸 Pessoal</option>
+                    </select>
+                    <button onclick="addShoppingItem()">Adicionar</button>
+                </div>
+                <div class="shopping-list" id="shopping-list"></div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Feito com 💖 para você - <span id="current-year"></span></p>
+        </footer>
+
+        <!-- Botão Coração Secreto -->
+        <div class="heart-btn" onclick="showSecretMessage()">💌</div>
+
+        <!-- Modal da Mensagem Secreta -->
+<div id="secret-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <button class="modal-close" onclick="hideSecretMessage()">×</button>
+        <h2>💌 Para você, meu amor</h2>
+        <div style="margin: 2rem 0;">
+            <p style="font-style: italic; color: var(--cinza-escuro); margin-bottom: 1rem;">
+                "Minha querida, cada dia ao seu lado é uma bênção. 
+                Vejo você se desdobrando para dar conta de tudo e quero que saiba 
+                o quanto te admiro e amo."
+            </p>
+            <p style="font-style: italic; color: var(--cinza-escuro);">
+                "Espero que este planner te ajude a organizar seu tempo e lembre 
+                sempre do quanto você é especial para mim. Te amo infinitamente!"
+            </p>
+        </div>
+        <img 
+            src="heart-love-emoji-3d-png.webp" 
+            alt="Casal feliz abraçado em um pôr do sol romântico com cores quentes e atmosfera amorosa" 
+            style="width: 100%; border-radius: 15px; margin-bottom: 1rem;"
+        >
+        <button onclick="playMusic()">🎵 Ouvir Nossa Música</button>
+
+        <!-- Adicionado iframe do Spotify -->
+        <div style="margin-top: 1rem; text-align:center;">
+          <iframe 
+            src="https://open.spotify.com/embed/album/4M8ThNHbNjda2cPwL8XZHS" 
+            width="300" 
+            height="80" 
+            frameborder="0" 
+            allowtransparency="true" 
+            allow="encrypted-media">
+          </iframe>
+        </div>
+    </div>
+</div>
+
+
+    <!-- ... seu código anterior ... -->
+
+<script>
+  // Variáveis globais
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  let goals = JSON.parse(localStorage.getItem('goals')) || [];
+  let shoppingItems = JSON.parse(localStorage.getItem('shoppingItems')) || [];
+  let events = JSON.parse(localStorage.getItem('events')) || [];
+  let logs = JSON.parse(localStorage.getItem('logs')) || [];
+
+  const motivationalMessages = [
+    "💕 Respira, você é incrível!",
+    "🌸 Não esquece de se cuidar, eu te amo!",
+    "🌟 Tudo vai dar certo, confia!",
+    "🌞 Hoje será um dia maravilhoso!",
+    "🎯 Orgulho de você, meu amor!",
+    "💖 Você consegue tudo o que quiser!",
+    "✨ Sua força me inspira todos os dias!",
+    "🦋 Voce é mais forte do que imagina!"
+  ];
+
+  // Função para salvar todos os dados
+  function saveData() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('goals', JSON.stringify(goals));
+    localStorage.setItem('shoppingItems', JSON.stringify(shoppingItems));
+    localStorage.setItem('events', JSON.stringify(events));
+    localStorage.setItem('logs', JSON.stringify(logs));
+  }
+
+  // Função para adicionar log
+  function addLog(message) {
+    const logEntry = {
+      id: Date.now(),
+      timestamp: new Date().toISOString(),
+      message
+    };
+    logs.push(logEntry);
+    saveData();
+  }
+
+  // Atualiza a data atual no header
+  function updateDate() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+  }
+
+  // Navegação entre views
+  function setupNavigation() {
+    const buttons = document.querySelectorAll('.nav-btn');
+    const views = document.querySelectorAll('.view-content');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+        const view = this.dataset.view;
+        buttons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        views.forEach(v => v.style.display = 'none');
+        document.getElementById(`${view}-view`).style.display = 'block';
+      });
+    });
+  }
+
+  // Setup checkboxes para tarefas e compras
+  function setupCheckboxes() {
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('checkbox')) {
+        const id = parseInt(e.target.dataset.id);
+        const type = e.target.closest('.view-content').id.replace('-view','');
+        if(type==='tarefas') toggleTask(id);
+        if(type==='compras') toggleShoppingItem(id);
+      }
+    });
+  }
+
+  // Funções para tarefas
+  function addTask() {
+    const input = document.getElementById('new-task');
+    const category = document.getElementById('task-category').value;
+    if(!input.value.trim()) return;
+
+    tasks.push({id:Date.now(), text: input.value.trim(), category, completed:false});
+    addLog(`Tarefa adicionada: ${input.value.trim()}`);
+    saveData();
+    renderTasks();
+    input.value='';
+  }
+
+  function toggleTask(id) {
+    tasks = tasks.map(t => t.id===id?{...t, completed:!t.completed}:t);
+    addLog(`Tarefa ${tasks.find(t=>t.id===id).completed ? 'concluída' : 'reaberta'}: ${tasks.find(t=>t.id===id).text}`);
+    saveData();
+    renderTasks();
+  }
+
+  function renderTasks() {
+    const container = document.getElementById('tasks-list');
+    container.innerHTML='';
+    const pending = tasks.filter(t=>!t.completed);
+    const done = tasks.filter(t=>t.completed);
+
+    if(pending.length===0 && done.length===0){
+      container.innerHTML='<p style="text-align:center;color:var(--cinza);padding:2rem;">Nenhuma tarefa ainda. Que tal adicionar uma?</p>';
+      return;
+    }
+
+    pending.forEach(t=>{
+      container.innerHTML+=`
+        <div class="task-item">
+          <div class="checkbox" data-id="${t.id}">✓</div>
+          <div class="task-text">${t.text}</div>
+          <span class="category-badge category-${t.category}">
+            ${t.category==='trabalho'?'💻 Trabalho':t.category==='pessoal'?'🌸 Pessoal':'🏡 Casa'}
+          </span>
+        </div>`;
+    });
+
+    if(done.length>0){
+      container.innerHTML+='<h3 style="margin:1.5rem 0 0.5rem 0;color:var(--cinza);">Concluídas</h3>';
+      done.forEach(t=>{
+        container.innerHTML+=`
+          <div class="task-item">
+            <div class="checkbox checked" data-id="${t.id}">✓</div>
+            <div class="task-text completed">${t.text}</div>
+            <span class="category-badge category-${t.category}">
+              ${t.category==='trabalho'?'💻 Trabalho':t.category==='pessoal'?'🌸 Pessoal':'🏡 Casa'}
+            </span>
+          </div>`;
+      });
+    }
+  }
+
+  // Funções para metas
+  function addGoal() {
+    const input = document.getElementById('new-goal');
+    if(!input.value.trim()) return;
+    goals.push({id:Date.now(), text:input.value.trim(), progress:0});
+    addLog(`Meta adicionada: ${input.value.trim()}`);
+    saveData();
+    renderGoals();
+    input.value='';
+  }
+
+  function updateGoalProgress(id, progress){
+    goals = goals.map(g=> g.id===id?{...g, progress:Math.min(100,Math.max(0,progress))}:g);
+    addLog(`Meta atualizada: ${goals.find(g=>g.id===id).text} para ${progress}%`);
+    saveData();
+    renderGoals();
+  }
+
+  function renderGoals(){
+    const container = document.getElementById('goals-list');
+    container.innerHTML='';
+    if(goals.length===0){
+      container.innerHTML='<p style="text-align:center;color:var(--cinza);padding:2rem;">Nenhuma meta definida. Comece a planejar!</p>';
+      return;
+    }
+    goals.forEach(g=>{
+      container.innerHTML+=`
+        <div class="goal-item">
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+              <strong>${g.text}</strong>
+              <span style="color:var(--lilas);font-weight:600;">${g.progress}%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${g.progress}%"></div></div>
+            <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
+              <button onclick="updateGoalProgress(${g.id},${g.progress-10})" style="padding:0.3rem 0.8rem;font-size:0.8rem;">-10%</button>
+              <button onclick="updateGoalProgress(${g.id},${g.progress+10})" style="padding:0.3rem 0.8rem;font-size:0.8rem;">+10%</button>
+              <button onclick="updateGoalProgress(${g.id},100)" style="padding:0.3rem 0.8rem;font-size:0.8rem;margin-left:auto;">Completar</button>
+            </div>
+            ${g.progress===100?`<div style="background:var(--rosa-claro);padding:0.5rem;border-radius:8px;margin-top:0.5rem;">
+              <p style="color:var(--rosa-escuro);margin:0;font-weight:500;">🎉 Orgulho de você, meu amor!</p>
+            </div>`:''}
+          </div>
+        </div>`;
+    });
+  }
+
+  // Funções para lista de compras
+  function addShoppingItem() {
+    const input = document.getElementById('new-item');
+    const category = document.getElementById('item-category').value;
+    if(!input.value.trim()) return;
+
+    shoppingItems.push({id:Date.now(),text:input.value.trim(),category,completed:false});
+    addLog(`Item de compra adicionado: ${input.value.trim()}`);
+    saveData();
+    renderShoppingList();
+    input.value='';
+  }
+
+  function toggleShoppingItem(id){
+    shoppingItems = shoppingItems.map(i=> i.id===id?{...i, completed:!i.completed}:i);
+    addLog(`Item de compra ${shoppingItems.find(i=>i.id===id).completed ? 'marcado' : 'desmarcado'}: ${shoppingItems.find(i=>i.id===id).text}`);
+    saveData();
+    renderShoppingList();
+  }
+
+  function renderShoppingList(){
+    const container = document.getElementById('shopping-list');
+    container.innerHTML='';
+    const pending = shoppingItems.filter(i=>!i.completed);
+    const done = shoppingItems.filter(i=>i.completed);
+
+    if(pending.length===0 && done.length===0){
+      container.innerHTML='<p style="text-align:center;color:var(--cinza);padding:2rem;">Lista de compras vazia. O que precisa comprar?</p>';
+      return;
+    }
+
+    pending.forEach(i=>{
+      container.innerHTML+=`
+        <div class="shopping-item">
+          <div class="checkbox" data-id="${i.id}">✓</div>
+          <div class="task-text">${i.text}</div>
+          <span class="category-badge category-${i.category}">
+            ${i.category==='mercado'?'🛒 Mercado':i.category==='casa'?'🏠 Casa':'🌸 Pessoal'}
+          </span>
+        </div>`;
+    });
+
+    if(done.length>0){
+      container.innerHTML+='<h3 style="margin:1.5rem 0 0.5rem 0;color:var(--cinza);">Comprados</h3>';
+      done.forEach(i=>{
+        container.innerHTML+=`
+          <div class="shopping-item">
+            <div class="checkbox checked" data-id="${i.id}">✓</div>
+            <div class="task-text completed">${i.text}</div>
+            <span class="category-badge category-${i.category}">
+              ${i.category==='mercado'?'🛒 Mercado':i.category==='casa'?'🏠 Casa':'🌸 Pessoal'}
+            </span>
+          </div>`;
+      });
+    }
+  }
+
+  // Funções para eventos no calendário
+  function renderCalendar() {
+    const container = document.getElementById('calendar');
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    container.innerHTML = '';
+
+    // Cabeçalho dias da semana
+    days.forEach(day => {
+      const dayHeader = document.createElement('div');
+      dayHeader.className = 'calendar-day header';
+      dayHeader.textContent = day;
+      container.appendChild(dayHeader);
+    });
+
+    // Espaços vazios antes do primeiro dia
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      const emptyCell = document.createElement('div');
+      emptyCell.className = 'calendar-day';
+      container.appendChild(emptyCell);
+    }
+
+    // Dias do mês
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'calendar-day clickable';
+      dayCell.textContent = day;
+
+      const dateStr = `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+      if (
+        day === now.getDate() &&
+        month === now.getMonth() &&
+        year === now.getFullYear()
+      ) {
+        dayCell.classList.add('today');
+      }
+
+      // Verifica se tem eventos nesse dia
+      const hasEvents = events.some(ev => ev.date === dateStr);
+      if (hasEvents) {
+        const dot = document.createElement('div');
+        dot.className = 'event-dot';
+        dayCell.appendChild(dot);
+      }
+
+      dayCell.addEventListener('click', () => openEventModal(dateStr));
+
+      container.appendChild(dayCell);
+    }
+  }
+
+  // Renderiza eventos do dia atual na agenda
+  function renderTodayEvents() {
+    const container = document.querySelector('#agenda-view .task-list');
+    container.innerHTML = '';
+
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+    const todaysEvents = events.filter(ev => ev.date === todayStr);
+
+    if(todaysEvents.length === 0){
+      container.innerHTML = '<p style="text-align:center;color:var(--cinza);padding:1rem;">Nenhum evento hoje</p>';
+      return;
+    }
+
+    todaysEvents.sort((a,b) => a.time.localeCompare(b.time));
+
+    todaysEvents.forEach(ev => {
+      const item = document.createElement('div');
+      item.className = 'task-item';
+
+      const checkbox = document.createElement('div');
+      checkbox.className = 'checkbox checked';
+      checkbox.textContent = '✓';
+      checkbox.title = 'Remover evento';
+      checkbox.style.cursor = 'pointer';
+      checkbox.addEventListener('click', () => {
+        if(confirm('Remover evento?')){
+          events = events.filter(e => e.id !== ev.id);
+          addLog(`Evento removido: ${ev.title}`);
+          saveData();
+          renderCalendar();
+          renderTodayEvents();
+        }
+      });
+
+      const text = document.createElement('div');
+      text.className = 'task-text';
+      text.textContent = `${ev.time} - ${ev.title}`;
+
+      item.appendChild(checkbox);
+      item.appendChild(text);
+      container.appendChild(item);
+    });
+  }
+
+  // Modal eventos
+  function openEventModal(dateStr) {
+    const modal = document.getElementById('event-modal');
+    modal.style.display = 'flex';
+    document.getElementById('event-date').value = dateStr;
+    document.getElementById('event-time').value = '';
+    document.getElementById('event-title').value = '';
+    document.getElementById('event-category').value = 'pessoal';
+  }
+
+  function closeEventModal() {
+    document.getElementById('event-modal').style.display = 'none';
+  }
+
+  document.getElementById('event-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const date = document.getElementById('event-date').value;
+    const time = document.getElementById('event-time').value;
+    const title = document.getElementById('event-title').value.trim();
+    const category = document.getElementById('event-category').value;
+
+    if(!date || !time || !title) {
+      alert('Preencha todos os campos');
+      return;
+    }
+
+    const newEvent = {
+      id: Date.now(),
+      date,
+      time,
+      title,
+      category
+    };
+
+    events.push(newEvent);
+    addLog(`Evento adicionado: ${title}`);
+    saveData();
+    closeEventModal();
+    renderCalendar();
+    renderTodayEvents();
+  });
+
+  // Mensagens motivacionais
+  function startMotivationalMessages() {
+    setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+      const message = motivationalMessages[randomIndex];
+      const element = document.getElementById('motivational-message');
+      element.style.opacity = '0';
+      setTimeout(() => {
+        element.textContent = message;
+        element.style.opacity = '1';
+      }, 500);
+    }, 30000);
+  }
+
+  // Mensagem secreta
+  function showSecretMessage() {
+    document.getElementById('secret-modal').style.display = 'flex';
+  }
+
+  function hideSecretMessage() {
+    document.getElementById('secret-modal').style.display = 'none';
+  }
+
+  // Música (exemplo)
+  let musicAdded = false;
+  function playMusic() {
+    if (!musicAdded) {
+      const secretModal = document.getElementById('secret-modal');
+      const musicContainer = document.createElement('div');
+      musicContainer.style.marginTop = '1rem';
+      musicContainer.style.textAlign = 'center';
+      musicContainer.innerHTML = `
+        <iframe 
+          src="https://open.spotify.com/embed/album/4M8ThNHbNjda2cPwL8XZHS" 
+          width="300" 
+          height="80" 
+          frameborder="0" 
+          allowtransparency="true" 
+          allow="encrypted-media">
+        </iframe>
+      `;
+      secretModal.querySelector('.modal-content').appendChild(musicContainer);
+      musicAdded = true;
+    }
+  }
+
+  // Inicialização
+  document.addEventListener('DOMContentLoaded', () => {
+    updateDate();
+    renderTasks();
+    renderGoals();
+    renderShoppingList();
+    renderCalendar();
+    renderTodayEvents();
+    setupNavigation();
+    setupCheckboxes();
+    startMotivationalMessages();
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    addLog('Acesso ao Planner da Carollina');
+  });
+</script>
+</body>
+</html>
+
+</body>
+</html>
