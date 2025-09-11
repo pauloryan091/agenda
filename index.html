@@ -1085,6 +1085,62 @@
     document.getElementById('current-year').textContent = new Date().getFullYear();
     addLog('Acesso ao Planner da Carollina');
   });
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registrado com sucesso:', registration.scope);
+      })
+      .catch(error => {
+        console.log('Falha ao registrar o Service Worker:', error);
+      });
+  });
+}
+
+const CACHE_NAME = 'planner-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192x192.png',
+  // Adicione aqui todos os arquivos CSS, JS e imagens usados no seu projeto
+];
+
+// Instalando o Service Worker e armazenando os arquivos no cache
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+// Ativando o Service Worker e limpando caches antigos
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.filter(name => name !== CACHE_NAME)
+          .map(name => caches.delete(name))
+      );
+    })
+  );
+});
+
+// Interceptando requisições para servir do cache quando offline
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Retorna do cache ou faz a requisição na rede
+        return response || fetch(event.request);
+      })
+      .catch(() => {
+        // Opcional: retornar uma página offline customizada
+      })
+  );
+});
 </script>
 </body>
 </html>
