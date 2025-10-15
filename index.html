@@ -45,7 +45,7 @@
             --bg-lighter: #ffe4e1;
             --text-dark: #3a3a3a;
             --text-light: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.92);
             --hover-border: #ff69b4;
             --shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
             --gradient: none;
@@ -58,7 +58,7 @@
             --bg-lighter: #000000;
             --text-dark: #f0f0f0;
             --text-light: #1c1c1c;
-            --card-bg: rgba(45, 45, 45, 0.85);
+            --card-bg: rgba(45, 45, 45, 0.92);
             --hover-border: #ffb81f;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             --gradient: none;
@@ -79,6 +79,29 @@
             position: relative;
             transition: background 0.5s ease, color 0.5s ease;
         }
+[data-theme="hello-kitty"] body {
+    background-image: url('hellokitty.jpg');
+}
+
+[data-theme="batman"] body {
+    background-image: url('batman.jpg');
+}
+        /* Imagens de fundo para os temas */
+        [data-theme="hello-kitty"] body {
+            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        [data-theme="batman"] body {
+            background-image: url('https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
 
         .container {
             max-width: 1200px;
@@ -93,6 +116,7 @@
             margin-bottom: 1.5rem;
             box-shadow: var(--shadow);
             transition: background 0.5s ease, box-shadow 0.5s ease;
+            backdrop-filter: blur(10px);
         }
 
         header {
