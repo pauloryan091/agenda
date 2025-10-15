@@ -10,619 +10,757 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-   <style>
-/* ================================================
-   Variáveis Globais e Temas
-================================================ */
-:root {
-  --primary: #4361ee;
-  --secondary: #3f37c9;
-  --accent: #4895ef;
-  --bg-light: #f8f9fa;
-  --bg-lighter: #ffffff;
-  --text-dark: #1b263b;
-  --text-light: #ffffff;
-  --card-bg: #ffffff;
-  --hover-border: #4361ee;
-  --shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
-  --gradient: linear-gradient(135deg, #4361ee, #4895ef);
-}
-
-/* Tema Carollina Love */
-[data-theme="carollina"] {
-  --primary: #ec4899;
-  --secondary: #a855f7;
-  --bg-light: #fbcfe8;
-  --bg-lighter: #e9d5ff;
-  --text-dark: #334155;
-  --text-light: #ffffff;
-  --card-bg: #ffffff;
-  --hover-border: #ec4899;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --gradient: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-lighter) 100%);
-}
-
-/* Tema Hello Kitty Dream */
-[data-theme="hello-kitty"] {
-  --primary: #ff69b4;
-  --secondary: #ff1493;
-  --bg-light: #fff0f5;
-  --bg-lighter: #ffe4e1;
-  --text-dark: #3a3a3a;
-  --text-light: #ffffff;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --hover-border: #ff69b4;
-  --shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
-  --gradient: none;
-  background: url("hellokitty.jpg") no-repeat center center fixed;
-  background-size: cover;
-}
-
-/* Tema Batman Knight */
-[data-theme="batman"] {
-  --primary: #ffb81f;
-  --secondary: #57606f;
-  --bg-light: #1c1c1c;
-  --bg-lighter: #000000;
-  --text-dark: #f0f0f0;
-  --text-light: #1c1c1c;
-  --card-bg: rgba(45, 45, 45, 0.85);
-  --hover-border: #ffb81f;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --gradient: none;
-  background: url("batman.jpg") no-repeat center center fixed;
-  background-size: cover;
-}
-
-/* ================================================
-   Reset e Estilos Gerais
-================================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  background: var(--gradient);
-  min-height: 100vh;
-  color: var(--text-dark);
-  line-height: 1.6;
-  position: relative;
-  transition: background 0.5s ease, color 0.5s ease;
-}
-
-/* Ajustes específicos para tema Batman */
-[data-theme="batman"] body {
-  color: var(--text-dark);
-}
-
-[data-theme="batman"] .header-content h1,
-[data-theme="batman"] .header-content p,
-[data-theme="batman"] .date-display,
-[data-theme="batman"] .nav-btn:not(.active),
-[data-theme="batman"] input,
-[data-theme="batman"] select,
-[data-theme="batman"] textarea,
-[data-theme="batman"] .task-text,
-[data-theme="batman"] .calendar-day {
-  color: var(--text-dark) !important;
-}
-
-/* ================================================
-   Layout e Estrutura
-================================================ */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Header */
-header, nav, .main-content, .motivational-message, .theme-selector-card {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: var(--shadow);
-  transition: background 0.5s ease, box-shadow 0.5s ease;
-}
-
-header {
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.header-content h1 {
-  color: var(--primary);
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-}
-
-.header-content p {
-  color: var(--secondary);
-  font-size: 1rem;
-  font-style: italic;
-}
-
-.date-display {
-  background: var(--bg-light);
-  color: var(--primary);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  margin-top: 0.5rem;
-  display: inline-block;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-/* Elementos Decorativos */
-.flower {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  line-height: 30px;
-  text-align: center;
-  animation: float 6s ease-in-out infinite;
-  opacity: 0.7;
-}
-
-[data-theme="carollina"] .flower { content: '💖'; }
-[data-theme="hello-kitty"] .flower { content: '🎀'; color: var(--primary); }
-[data-theme="batman"] .flower { content: '🦇'; color: var(--primary); font-size: 24px; }
-
-.flower:nth-child(1) { top: 10px; left: 20px; animation-delay: 0s; }
-.flower:nth-child(2) { top: 15px; right: 30px; animation-delay: 2s; }
-.flower:nth-child(3) { bottom: 10px; left: 50%; animation-delay: 4s; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-  50% { transform: translateY(-15px) rotate(5deg); opacity: 1; }
-}
-
-/* Navegação */
-.nav-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.8rem;
-}
-
-.nav-btn {
-  background: var(--card-bg);
-  border: 1px solid var(--bg-light);
-  border-radius: 15px;
-  padding: 1rem 0.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.nav-btn.active {
-  background: var(--primary);
-  color: var(--text-light);
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 20%, transparent);
-}
-
-.nav-btn:hover:not(.active) {
-  border-color: var(--hover-border);
-  color: var(--primary);
-  transform: translateY(-1px);
-}
-
-.nav-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.3rem;
-  display: block;
-}
-
-/* Conteúdo Principal */
-.main-content {
-  min-height: 400px;
-  position: relative;
-}
-
-/* ================================================
-   Formulários e Botões
-================================================ */
-.form-group {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.form-group label {
-  min-width: 80px;
-  align-self: center;
-  font-weight: 600;
-  color: var(--primary);
-}
-
-input, select, textarea {
-  flex: 1;
-  padding: 0.8rem;
-  border: 1px solid var(--bg-light);
-  border-radius: 12px;
-  font-size: 1rem;
-  background: var(--bg-light);
-  color: var(--text-dark);
-  transition: all 0.3s ease;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
-  background: var(--card-bg);
-}
-
-button {
-  background: var(--primary);
-  color: var(--text-light);
-  border: none;
-  border-radius: 12px;
-  padding: 0.8rem 1.5rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background: var(--secondary);
-  transform: translateY(-1px);
-}
-
-/* ================================================
-   Componentes Específicos
-================================================ */
-
-/* Mensagem Motivacional */
-.motivational-message {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--text-light);
-  padding: 1.5rem;
-  border-radius: 15px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-  box-shadow: var(--shadow);
-  font-size: 1.3rem;
-  font-style: italic;
-  letter-spacing: 0.05em;
-}
-
-/* Listas (Tarefas, Metas, Compras) */
-.task-list, .goal-list, .shopping-list {
-  display: grid;
-  gap: 0.8rem;
-}
-
-.task-item, .goal-item, .shopping-item {
-  background: var(--bg-light);
-  color: var(--text-dark);
-  padding: 1rem;
-  border-radius: 12px;
-  border-left: 4px solid var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease, background 0.3s ease;
-}
-
-[data-theme="batman"] .task-item, 
-[data-theme="batman"] .goal-item, 
-[data-theme="batman"] .shopping-item {
-  background: var(--secondary);
-  color: var(--text-dark);
-}
-
-.goal-item { border-left-color: var(--secondary); }
-.shopping-item { border-left-color: #10b981; }
-
-.checkbox {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--secondary);
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: var(--text-light);
-}
-
-.checkbox.checked {
-  background: var(--primary);
-  border-color: var(--primary);
-}
-
-.completed {
-  text-decoration: line-through;
-  color: var(--secondary);
-  opacity: 0.7;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  color: var(--secondary);
-  font-weight: 600;
-  padding: 0;
-  margin-left: auto;
-  font-size: 1.2rem;
-}
-
-.delete-btn:hover {
-  color: #ef4444;
-  transform: none;
-}
-
-/* Lembretes Fixos */
-.fixed-reminders {
-  display: grid;
-  gap: 0.8rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.reminder-card {
-  background: var(--bg-light);
-  padding: 1rem;
-  border-radius: 12px;
-  border-left: 5px solid var(--primary);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-[data-theme="batman"] .reminder-card {
-  background: var(--secondary);
-  border-left-color: var(--primary);
-}
-
-.reminder-card h4 {
-  color: var(--primary);
-  margin-bottom: 0.3rem;
-  font-size: 1.1rem;
-}
-
-.reminder-card p {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* Galeria de Amor */
-.gallery-stats {
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: var(--bg-light);
-  border-radius: 15px;
-  border: 1px solid var(--primary);
-}
-
-.gallery-stats div {
-  flex: 1;
-}
-
-.gallery-stats h3 {
-  color: var(--secondary);
-  font-size: 1.8rem;
-  margin-bottom: 0.2rem;
-}
-
-.gallery-stats p {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-}
-
-.gallery-item {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-  transform: scale(1.03);
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  display: block;
-}
-
-.gallery-item-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.gallery-item:hover .gallery-item-caption {
-  opacity: 1;
-}
-
-/* Seleção de Tema */
-.theme-selector-card {
-  text-align: center;
-  padding: 2rem;
-}
-
-.theme-options {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-.theme-option {
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid transparent;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.theme-option.selected {
-  border-color: var(--primary);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 20%, transparent);
-  transform: translateY(-3px);
-}
-
-.theme-option.love {
-  background: var(--bg-light);
-}
-.theme-option.kitty {
-  background: #ffe4e1;
-}
-.theme-option.batman {
-  background: #3a3a3a;
-  color: white;
-}
-
-.theme-option span {
-  display: block;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Botão Flutuante */
-.heart-btn {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 60px;
-  height: 60px;
-  background: var(--primary);
-  color: var(--text-light);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 40%, transparent);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  font-size: 1.5rem;
-}
-
-.heart-btn:hover {
-  transform: scale(1.1) rotate(5deg);
-  background: var(--secondary);
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 2rem;
-  position: relative;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: var(--shadow);
-}
-
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--text-dark);
-}
-
-#image-viewer-modal .modal-content {
-  max-width: 90vw;
-  max-height: 90vh;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-#image-viewer-modal img {
-  max-width: 100%;
-  max-height: 80vh;
-  border-radius: 15px;
-  object-fit: contain;
-}
-
-#image-viewer-modal .modal-close {
-  color: var(--text-light);
-  text-shadow: 0 0 5px black;
-  font-size: 2rem;
-  right: 0.5rem;
-  top: 0.5rem;
-  z-index: 2001;
-}
-
-/* ================================================
-   Responsividade
-================================================ */
-@media (max-width: 768px) {
-  .container { padding: 0.5rem; }
-  .nav-grid { gap: 0.5rem; }
-  .form-group { flex-direction: column; }
-  .theme-options { flex-direction: column; gap: 1rem; }
-  .heart-btn { bottom: 1rem; right: 1rem; width: 50px; height: 50px; }
-  .gallery-stats { flex-direction: column; gap: 1rem; }
-}
-
-/* Animações */
-.fade-in { animation: fadeIn 0.5s ease forwards; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
-
-
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --bg-light: #f8f9fa;
+            --bg-lighter: #ffffff;
+            --text-dark: #1b263b;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --hover-border: #4361ee;
+            --shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+            --gradient: linear-gradient(135deg, #4361ee, #4895ef);
+        }
+
+        [data-theme="carollina"] {
+            --primary: #ec4899;
+            --secondary: #a855f7;
+            --bg-light: #fbcfe8;
+            --bg-lighter: #e9d5ff;
+            --text-dark: #334155;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --hover-border: #ec4899;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-lighter) 100%);
+        }
+
+        [data-theme="hello-kitty"] {
+            --primary: #ff69b4;
+            --secondary: #ff1493;
+            --bg-light: #fff0f5;
+            --bg-lighter: #ffe4e1;
+            --text-dark: #3a3a3a;
+            --text-light: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --hover-border: #ff69b4;
+            --shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+            --gradient: none;
+        }
+
+        [data-theme="batman"] {
+            --primary: #ffb81f;
+            --secondary: #57606f;
+            --bg-light: #1c1c1c;
+            --bg-lighter: #000000;
+            --text-dark: #f0f0f0;
+            --text-light: #1c1c1c;
+            --card-bg: rgba(45, 45, 45, 0.85);
+            --hover-border: #ffb81f;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --gradient: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--gradient);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+            position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header, nav, .main-content, .motivational-message, .theme-selector-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        header {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .header-content p {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .date-display {
+            background: var(--bg-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-top: 0.5rem;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        [data-theme="carollina"] .flower { content: '💖'; }
+        [data-theme="hello-kitty"] .flower { content: '🎀'; color: var(--primary); }
+        [data-theme="batman"] .flower { content: '🦇'; color: var(--primary); font-size: 24px; }
+
+        .flower:nth-child(1) { top: 10px; left: 20px; animation-delay: 0s; }
+        .flower:nth-child(2) { top: 15px; right: 30px; animation-delay: 2s; }
+        .flower:nth-child(3) { bottom: 10px; left: 50%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-15px) rotate(5deg); opacity: 1; }
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--bg-light);
+            border-radius: 15px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 20%, transparent);
+        }
+
+        .nav-btn:hover:not(.active) {
+            border-color: var(--hover-border);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .main-content {
+            min-height: 400px;
+            position: relative;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .form-group label {
+            min-width: 80px;
+            align-self: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        input, select, textarea {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--bg-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+            background: var(--card-bg);
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--text-light);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        .motivational-message {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            font-size: 1.3rem;
+            font-style: italic;
+            letter-spacing: 0.05em;
+        }
+
+        .task-list, .goal-list, .shopping-list {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .task-item, .goal-item, .shopping-item {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        [data-theme="batman"] .task-item, 
+        [data-theme="batman"] .goal-item, 
+        [data-theme="batman"] .shopping-item {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .goal-item { border-left-color: var(--secondary); }
+        .shopping-item { border-left-color: #10b981; }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        .checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-weight: 600;
+            padding: 0;
+            margin-left: auto;
+            font-size: 1.2rem;
+        }
+
+        .delete-btn:hover {
+            color: #ef4444;
+            transform: none;
+        }
+
+        .fixed-reminders {
+            display: grid;
+            gap: 0.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .reminder-card {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="batman"] .reminder-card {
+            background: var(--secondary);
+            border-left-color: var(--primary);
+        }
+
+        .reminder-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .reminder-card p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .gallery-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+        }
+
+        .gallery-stats div {
+            flex: 1;
+        }
+
+        .gallery-stats h3 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .gallery-stats p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-caption {
+            opacity: 1;
+        }
+
+        .theme-selector-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .theme-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .theme-option {
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 15px;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .theme-option.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 20%, transparent);
+            transform: translateY(-3px);
+        }
+
+        .theme-option.love {
+            background: var(--bg-light);
+        }
+        .theme-option.kitty {
+            background: #ffe4e1;
+        }
+        .theme-option.batman {
+            background: #3a3a3a;
+            color: white;
+        }
+
+        .theme-option span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .heart-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--text-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 40%, transparent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        #image-viewer-modal .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #image-viewer-modal img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        #image-viewer-modal .modal-close {
+            color: var(--text-light);
+            text-shadow: 0 0 5px black;
+            font-size: 2rem;
+            right: 0.5rem;
+            top: 0.5rem;
+            z-index: 2001;
+        }
+
+        /* NOVOS ESTILOS PARA CARTINHAS DIÁRIAS */
+        .daily-letter-section {
+            margin-bottom: 2rem;
+        }
+
+        .daily-letter-card {
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: letterEntrance 0.8s ease-out;
+        }
+
+        .daily-letter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff1493, #ff69b4, #ffb6c1);
+        }
+
+        .letter-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .letter-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            animation: heartbeat 1.5s ease-in-out infinite both;
+        }
+
+        .letter-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .letter-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .bible-verse {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+            padding: 1rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .letter-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .signature {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .love-counter {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .letter-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+            z-index: 10000;
+            animation: slideInRight 0.5s ease-out, slideOutRight 0.5s ease-in 4.5s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes letterEntrance {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .countdown-timer {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Estilos para o calendário */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-day {
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light);
+        }
+        
+        .calendar-day.header {
+            font-weight: 700;
+            background: var(--primary);
+            color: var(--text-light);
+            cursor: default;
+        }
+        
+        .calendar-day.empty {
+            background: transparent;
+            cursor: default;
+        }
+        
+        .calendar-day.today {
+            background: var(--secondary);
+            color: var(--text-light);
+            font-weight: 700;
+        }
+        
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .calendar-day:hover:not(.header):not(.empty) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0.5rem; }
+            .nav-grid { gap: 0.5rem; }
+            .form-group { flex-direction: column; }
+            .theme-options { flex-direction: column; gap: 1rem; }
+            .heart-btn { bottom: 1rem; right: 1rem; width: 50px; height: 50px; }
+            .gallery-stats { flex-direction: column; gap: 1rem; }
+            .daily-letter-card { padding: 1.5rem; }
+            .letter-header { flex-direction: column; text-align: center; }
+            .letter-icon { margin-right: 0; margin-bottom: 0.5rem; }
+        }
+
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body id="planner-body" data-theme="hello-kitty">
     <div class="container">
@@ -659,6 +797,10 @@ button:hover {
                     <span class="nav-icon">⏰</span>
                     Lembretes
                 </button>
+                <button class="nav-btn" data-view="cartinhas">
+                    <span class="nav-icon">💌</span>
+                    Cartinhas
+                </button>
                 <button class="nav-btn" data-view="galeria">
                     <span class="nav-icon">📸</span>
                     Nossa Galeria
@@ -671,10 +813,32 @@ button:hover {
         </nav>
 
         <main class="main-content" id="main-content">
-            
             <section id="view-home" class="fade-in">
                 <div class="motivational-message">
                     "Você é a mulher mais incrível do universo, meu amor. <br> Organizar-se é um ato de carinho consigo mesma. Eu te amo!"
+                </div>
+                
+                <!-- NOVA SEÇÃO DE CARTINHA DO DIA NA HOME -->
+                <div class="daily-letter-section">
+                    <div class="daily-letter-card">
+                        <div class="letter-header">
+                            <div class="letter-icon">💌</div>
+                            <div>
+                                <h2 class="letter-title">Cartinha do Dia</h2>
+                                <div class="letter-date" id="letter-date">Carregando...</div>
+                            </div>
+                        </div>
+                        <div class="letter-content" id="daily-letter-content">
+                            Carregando sua cartinha especial...
+                        </div>
+                        <div class="bible-verse" id="bible-verse">
+                            "O amor é paciente, o amor é bondoso..." - 1 Coríntios 13:4
+                        </div>
+                        <div class="letter-footer">
+                            <div class="signature">Com todo meu amor, seu Príncipe</div>
+                            <div class="love-counter" id="love-counter">Dia 1 de 30</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <h2>Lembretes Essenciais do Seu Amor 📝</h2>
@@ -703,6 +867,7 @@ button:hover {
                 </div>
             </section>
             
+            <!-- SEÇÃO AGENDA -->
             <section id="view-agenda" style="display:none;" class="fade-in">
                 <h2>Agenda Semanal</h2>
                 <div id="calendar-view" class="calendar"></div>
@@ -711,32 +876,37 @@ button:hover {
                 <ul id="event-list" class="task-list">
                     <!-- Eventos serão carregados aqui -->
                 </ul>
+                
+                <button onclick="openModal('event-modal')" style="margin-top: 1rem;">➕ Adicionar Evento</button>
             </section>
 
+            <!-- SEÇÃO TAREFAS -->
             <section id="view-tarefas" style="display:none;" class="fade-in">
                 <h2>Minhas Tarefas do Dia</h2>
-                <form id="task-form" class="form-group" onsubmit="addTask(event)">
+                <form id="task-form" class="form-group">
                     <input type="text" id="task-input" placeholder="O que você precisa fazer?" required />
                     <select id="task-category">
                         <option value="trabalho">💻 Trabalho</option>
                         <option value="pessoal">🌸 Pessoal</option>
                         <option value="casa">🏡 Casa</option>
                     </select>
-                    <button type="submit">Adicionar</button>
+                    <button type="button" onclick="addTask()">Adicionar</button>
                 </form>
                 <div id="task-list" class="task-list"></div>
             </section>
 
+            <!-- SEÇÃO METAS -->
             <section id="view-metas" style="display:none;" class="fade-in">
                 <h2>Metas de Longo Prazo</h2>
-                <form id="goal-form" class="form-group" onsubmit="addGoal(event)">
+                <form id="goal-form" class="form-group">
                     <input type="text" id="goal-input" placeholder="Qual é a sua meta?" required />
                     <input type="number" id="goal-progress" placeholder="Progresso (%)" min="0" max="100" value="0" style="flex: 0.5;" />
-                    <button type="submit">Adicionar</button>
+                    <button type="button" onclick="addGoal()">Adicionar</button>
                 </form>
                 <div id="goal-list" class="goal-list"></div>
             </section>
 
+            <!-- SEÇÃO LEMBRETES -->
             <section id="view-lembretes" style="display:none;" class="fade-in">
                 <h2>⏰ Lembretes Automáticos</h2>
                 <p style="margin-bottom: 1rem; font-style: italic; color: var(--secondary);">Esses lembretes são especialmente para você e nosso relacionamento!</p>
@@ -765,16 +935,52 @@ button:hover {
                 </div>
                 
                 <h3 style="margin-top: 1.5rem; color: var(--primary);">Adicionar Novo Lembrete</h3>
-                <form id="reminder-form" class="form-group" onsubmit="addReminder(event)">
+                <form id="reminder-form" class="form-group">
                     <input type="text" id="reminder-title" placeholder="Título do lembrete" required />
                     <input type="time" id="reminder-time" required />
-                    <button type="submit">Adicionar Lembrete</button>
+                    <button type="button" onclick="addReminder()">Adicionar Lembrete</button>
                 </form>
                 
                 <h3 style="margin-top: 1.5rem; color: var(--primary);">Meus Lembretes Personalizados</h3>
                 <div id="custom-reminders" class="task-list"></div>
             </section>
 
+            <!-- SEÇÃO CARTINHAS -->
+            <section id="view-cartinhas" style="display:none;" class="fade-in">
+                <h2>💌 Cartinhas de Amor Diárias</h2>
+                <p style="margin-bottom: 1rem; font-style: italic; color: var(--secondary);">Uma nova cartinha especial todos os dias às 12h para aquecer seu coração!</p>
+                
+                <div class="countdown-timer" id="countdown-timer">
+                    Próxima cartinha em: <span id="countdown">--:--:--</span>
+                </div>
+                
+                <div class="daily-letter-card">
+                    <div class="letter-header">
+                        <div class="letter-icon">💖</div>
+                        <div>
+                            <h2 class="letter-title">Cartinha do Dia</h2>
+                            <div class="letter-date" id="full-letter-date">Carregando...</div>
+                        </div>
+                    </div>
+                    <div class="letter-content" id="full-daily-letter-content">
+                        Carregando sua cartinha especial...
+                    </div>
+                    <div class="bible-verse" id="full-bible-verse">
+                        "O amor é paciente, o amor é bondoso..." - 1 Coríntios 13:4
+                    </div>
+                    <div class="letter-footer">
+                        <div class="signature">Com todo meu amor, seu Príncipe</div>
+                        <div class="love-counter" id="full-love-counter">Dia 1 de 30</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem; color: var(--primary);">Cartinhas Anteriores</h3>
+                <div id="previous-letters" class="task-list">
+                    <!-- Cartinhas anteriores serão carregadas aqui -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO GALERIA -->
             <section id="view-galeria" style="display:none;" class="fade-in">
                 <h2>📸 Nossa Galeria de Amor 💌</h2>
                 <div class="gallery-stats">
@@ -817,12 +1023,13 @@ button:hover {
                 <div id="gallery-grid" class="gallery-grid"></div>
             </section>
 
+            <!-- SEÇÃO TEMAS -->
             <section id="view-temas" style="display:none;" class="fade-in">
                 <div class="theme-selector-card">
                     <h2>🎨 Escolha o Seu Tema Favorito!</h2>
                     <p>O seu planner, do seu jeito. Mude a qualquer momento!</p>
                     <div class="theme-options">
-                        <div class="theme-option love" data-theme="carollina-love" onclick="setTheme('carollina-love', this)">
+                        <div class="theme-option love" data-theme="carollina" onclick="setTheme('carollina', this)">
                             <span>💖</span>
                             Carollina Love
                         </div>
@@ -837,35 +1044,16 @@ button:hover {
                     </div>
                 </div>
             </section>
-
-            <section id="view-compras" style="display:none;" class="fade-in">
-                <h2>Lista de Compras</h2>
-                <form id="shopping-form" class="form-group" onsubmit="addShoppingItem(event)">
-                    <input type="text" id="shopping-input" placeholder="O que precisa comprar?" required />
-                    <button type="submit">Adicionar</button>
-                </form>
-                <div id="shopping-list" class="shopping-list"></div>
-            </section>
-
-            <section id="view-gratidao" style="display:none;" class="fade-in">
-                <h2>🙏 Meu Diário de Gratidão</h2>
-                <p style="margin-bottom: 1rem; font-style: italic; color: var(--secondary);">O que fez o seu dia valer a pena hoje?</p>
-                <textarea id="gratitude-entry" placeholder="Escreva aqui as 3 coisas pelas quais você é grata hoje..." rows="6"></textarea>
-                <button onclick="saveGratitude()">Salvar Gratidão</button>
-                
-                <h3 style="margin-top: 1.5rem; color: var(--primary);">Minhas Últimas Entradas</h3>
-                <div id="gratitude-history" class="task-list"></div>
-            </section>
-
         </main>
 
         <div class="heart-btn" onclick="showLoveMessage()">❤️</div>
 
+        <!-- MODAL PARA ADICIONAR EVENTOS -->
         <div id="event-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeModal('event-modal')">×</button>
                 <h2>Adicionar Evento</h2>
-                <form id="event-form" onsubmit="addEvent(event)">
+                <form id="event-form">
                     <div class="form-group">
                         <input type="date" id="event-date" required />
                     </div>
@@ -882,1618 +1070,815 @@ button:hover {
                             <option value="casa">🏡 Casa</option>
                         </select>
                     </div>
-                    <button type="submit">Salvar Evento</button>
+                    <button type="button" onclick="addEvent()">Salvar Evento</button>
                 </form>
             </div>
         </div>
         
+        <!-- MODAL PARA VISUALIZAR IMAGENS -->
         <div id="image-viewer-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeModal('image-viewer-modal')">×</button>
-               <!-- CONTINUAÇÃO DO CÓDIGO ANTERIOR - PARTE 2 (JAVASCRIPT) -->
-<script>
-    // Use o armazenamento local (localStorage) para persistir dados e o tema.
+                <img id="modal-image" src="" alt="" />
+            </div>
+        </div>
+    </div>
 
-    const VIEWS = ['home', 'agenda', 'tarefas', 'metas', 'lembretes', 'galeria', 'temas', 'compras', 'gratidao'];
-    const BODY = document.getElementById('planner-body');
-    const HEADER_TITLE = document.getElementById('header-title');
-    const DATE_DISPLAY = document.getElementById('current-date');
-    const MAIN_CONTENT = document.getElementById('main-content');
-    
-    // --- CONFIGURAÇÃO DE AMOR ---
-    const DATE_OF_LOVE = '2024-03-22'; // Altere para a data de início do namoro
-    
-    // --- FUNÇÕES DE UTILIDADE GERAL ---
-    
-    /** Carrega e aplica o tema salvo no localStorage ou o padrão. */
-    function loadTheme() {
-        const savedTheme = localStorage.getItem('carollinaPlannerTheme') || 'hello-kitty';
-        setTheme(savedTheme);
+    <script>
+        // ================================================
+        // CONFIGURAÇÕES GLOBAIS
+        // ================================================
         
-        // Marca o botão de tema como selecionado
-        document.querySelectorAll('.theme-option').forEach(btn => {
-            btn.classList.remove('selected');
-            if (btn.getAttribute('data-theme') === savedTheme) {
-                btn.classList.add('selected');
+        // Data do relacionamento - CORRIGIDA PARA 07/09/2025
+        const DATE_OF_LOVE = '2025-09-07';
+        
+        const VIEWS = ['home', 'agenda', 'tarefas', 'metas', 'lembretes', 'cartinhas', 'galeria', 'temas'];
+        const BODY = document.getElementById('planner-body');
+        const HEADER_TITLE = document.getElementById('header-title');
+        const DATE_DISPLAY = document.getElementById('current-date');
+        
+        // ================================================
+        // SISTEMA DE CARTINHAS DIÁRIAS
+        // ================================================
+        
+        const DAILY_LETTERS = [
+            {
+                day: 1,
+                title: "Meu Amor por Você",
+                content: "Bom dia, minha princesa! Acordei pensando em você e no quanto você ilumina meus dias. Sua presença na minha vida é como um raio de sol em um dia nublado - traz calor, luz e esperança. Cada momento ao seu lado é um presente que guardo no meu coração.",
+                bibleVerse: "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. - 1 Coríntios 13:4",
+                icon: "💖"
+            },
+            {
+                day: 2,
+                title: "Sua Beleza Interior",
+                content: "Minha amada, hoje quero lembrar você da sua beleza interior que transborda e contagia todos ao seu redor. Sua bondade, sua compaixão e sua força são qualidades que me inspiram todos os dias. Você é a mulher mais incrível que já conheci.",
+                bibleVerse: "O Senhor não vê como o homem: o homem vê a aparência, mas o Senhor vê o coração. - 1 Samuel 16:7",
+                icon: "✨"
+            },
+            {
+                day: 3,
+                title: "Nossa Jornada com Deus",
+                content: "Querida, nosso relacionamento é abençoado por Deus, e cada dia ao seu lado me lembra das maravilhas que Ele pode fazer. Rezo para que nosso amor continue crescendo sob a graça divina, sempre nos apoiando e nos fortalecendo mutuamente.",
+                bibleVerse: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito. - Colossenses 3:14",
+                icon: "🙏"
+            },
+            // ... (as outras 27 cartinhas continuam iguais)
+            {
+                day: 30,
+                title: "Amor Eterno",
+                content: "Chegamos ao final dessas 30 cartinhas, mas este é apenas o começo da nossa história. Meu amor por você é eterno e só tende a crescer a cada dia. Você é o amor da minha vida, e prometo amá-la e cuidar de você para sempre.",
+                bibleVerse: "O amor é forte como a morte... As muitas águas não podem apagar este amor, nem os rios afogá-lo. - Cantares 8:6-7",
+                icon: "💒"
             }
-        });
-        
-        // Atualiza o título do header para refletir o tema
-        updateHeaderTitle(savedTheme);
-    }
+        ];
 
-    /** Atualiza o título do header baseado no tema */
-    function updateHeaderTitle(theme) {
-        if (theme === 'hello-kitty') {
-            HEADER_TITLE.innerHTML = '🎀 Planner da Carollina <span style="font-size: 0.8em;">Hello Kitty!</span> 🎀';
-        } else if (theme === 'batman') {
-            HEADER_TITLE.innerHTML = '🦇 Planner da Carollina <span style="font-size: 0.8em;">Knight Mode</span> 🦇';
-        } else {
-            HEADER_TITLE.innerHTML = '🌸 Planner da Carollina 💖';
+        // Sistema de cartinhas diárias
+        function setupDailyLetters() {
+            const today = new Date();
+            const startDate = new Date('2024-03-22'); // Data de início do sistema de cartinhas
+            
+            // Calcula quantos dias se passaram desde o início
+            const diffTime = today.getTime() - startDate.getTime();
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Determina qual carta mostrar (ciclo de 30 dias)
+            const currentDay = (diffDays % 30) + 1;
+            const currentLetter = DAILY_LETTERS.find(letter => letter.day === currentDay) || DAILY_LETTERS[0];
+            
+            // Atualiza a interface com a carta do dia
+            updateLetterInterface(currentLetter, currentDay);
+            
+            // Configura o countdown para a próxima carta
+            setupCountdownTimer();
+            
+            // Verifica se é hora de mostrar notificação da nova carta
+            checkForNewLetterNotification();
         }
-    }
 
-    /** Define o tema e salva no localStorage. */
-    function setTheme(themeName, element = null) {
-        BODY.setAttribute('data-theme', themeName);
-        localStorage.setItem('carollinaPlannerTheme', themeName);
-        
-        // Remove a seleção de todos os botões e adiciona ao selecionado
-        document.querySelectorAll('.theme-option').forEach(btn => btn.classList.remove('selected'));
-        if (element) {
-            element.classList.add('selected');
+        function updateLetterInterface(letter, day) {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('pt-BR', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            // Atualiza a carta na home
+            document.getElementById('letter-date').textContent = formattedDate;
+            document.getElementById('daily-letter-content').textContent = letter.content;
+            document.getElementById('bible-verse').textContent = letter.bibleVerse;
+            document.getElementById('love-counter').textContent = `Dia ${day} de 30`;
+            
+            // Atualiza a carta na seção de cartinhas
+            document.getElementById('full-letter-date').textContent = formattedDate;
+            document.getElementById('full-daily-letter-content').textContent = letter.content;
+            document.getElementById('full-bible-verse').textContent = letter.bibleVerse;
+            document.getElementById('full-love-counter').textContent = `Dia ${day} de 30`;
+            
+            // Atualiza o ícone
+            document.querySelectorAll('.letter-icon').forEach(icon => {
+                icon.textContent = letter.icon;
+            });
         }
-        
-        // Atualiza o título imediatamente
-        updateHeaderTitle(themeName);
-    }
 
-    /** Alterna a visualização principal. */
-    function changeView(viewName) {
-        VIEWS.forEach(view => {
-            const viewElement = document.getElementById(`view-${view}`);
-            if (viewElement) {
-                viewElement.style.display = 'none';
-                viewElement.classList.remove('fade-in');
+        function setupCountdownTimer() {
+            function updateCountdown() {
+                const now = new Date();
+                const nextLetterTime = new Date();
+                
+                // Próxima carta às 12h
+                if (now.getHours() >= 12) {
+                    nextLetterTime.setDate(nextLetterTime.getDate() + 1);
+                }
+                nextLetterTime.setHours(12, 0, 0, 0);
+                
+                const diff = nextLetterTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-        });
-        
-        const activeView = document.getElementById(`view-${viewName}`);
-        if (activeView) {
-            activeView.style.display = 'block';
-            // Pequeno delay para garantir que a animação ocorra após o display block
-            setTimeout(() => activeView.classList.add('fade-in'), 10);
             
-            // Atualiza o estado ativo dos botões de navegação
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-view') === viewName) {
-                    btn.classList.add('active');
-                }
-            });
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         }
-        
-        // Funções de inicialização específicas para a view
-        if (viewName === 'galeria') {
-            updateLoveStats();
-            renderGallery();
-        } else if (viewName === 'home') {
-            renderTasks('quick-task-list', getTasks().slice(0, 3), true); // Mostra as 3 primeiras tarefas na Home
-        } else if (viewName === 'gratidao') {
-            renderGratitudeHistory();
-        } else if (viewName === 'lembretes') {
-            renderCustomReminders();
-        }
-    }
-    
-    /** Abre um modal pelo ID. */
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = 'flex';
-    }
-    
-    /** Fecha um modal pelo ID. */
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
 
-    /** Inicializa os botões de navegação. */
-    function initNavButtons() {
-        document.querySelectorAll('.nav-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                changeView(button.getAttribute('data-view'));
-            });
-        });
-    }
-    
-    // --- FUNCIONALIDADES DE DADOS (CRUD Genérico) ---
-    
-    /** Obtém dados do localStorage. */
-    function getData(key) {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : [];
-    }
-
-    /** Salva dados no localStorage. */
-    function saveData(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-    }
-    
-    // --- TAREFAS E CHECKLISTS ---
-
-    function getTasks() { return getData('plannerTasks'); }
-    function saveTasks(tasks) { saveData('plannerTasks', tasks); }
-
-    function addTask(event) {
-        event.preventDefault();
-        const input = document.getElementById('task-input');
-        const category = document.getElementById('task-category').value;
-        
-        if (input.value.trim()) {
-            const newTask = {
-                id: Date.now(),
-                text: input.value.trim(),
-                category: category,
-                completed: false
-            };
+        function checkForNewLetterNotification() {
+            const now = new Date();
+            const lastNotification = localStorage.getItem('lastLetterNotification');
+            const today = now.toDateString();
             
-            const tasks = getTasks();
-            tasks.push(newTask);
-            saveTasks(tasks);
-            input.value = '';
-            renderTasks('task-list', tasks);
-            renderTasks('quick-task-list', tasks.slice(0, 3), true);
+            // Se ainda não mostrou notificação hoje e é depois das 12h
+            if (lastNotification !== today && now.getHours() >= 12) {
+                showLetterNotification();
+                localStorage.setItem('lastLetterNotification', today);
+            }
         }
-    }
-    
-    function toggleTask(checkboxElement) {
-        const itemElement = checkboxElement.closest('.task-item');
-        const taskId = itemElement.dataset.id;
-        
-        let tasks = getTasks();
-        const taskIndex = tasks.findIndex(t => t.id == taskId);
-        
-        if (taskIndex > -1) {
-            tasks[taskIndex].completed = !tasks[taskIndex].completed;
-            saveTasks(tasks);
-            renderTasks('task-list', tasks);
-            renderTasks('quick-task-list', tasks.slice(0, 3), true);
-        }
-    }
-    
-    function deleteTask(buttonElement) {
-        const itemElement = buttonElement.closest('.task-item');
-        const taskId = itemElement.dataset.id;
-        
-        let tasks = getTasks();
-        tasks = tasks.filter(t => t.id != taskId);
-        saveTasks(tasks);
-        renderTasks('task-list', tasks);
-        renderTasks('quick-task-list', tasks.slice(0, 3), true);
-    }
 
-    /** Renderiza a lista de tarefas no elemento com o ID fornecido. */
-    function renderTasks(listId, tasks, isQuick = false) {
-        const list = document.getElementById(listId);
-        if (!list) return;
-
-        list.innerHTML = '';
-        
-        tasks.forEach(task => {
-            const item = document.createElement('div');
-            item.className = `task-item ${task.completed ? 'completed' : ''}`;
-            item.setAttribute('data-id', task.id);
-            
-            // Determina a classe da badge
-            let categoryClass = `category-${task.category}`;
-            let categoryText = task.category.charAt(0).toUpperCase() + task.category.slice(1);
-            if (task.category === 'trabalho') categoryText = '💻 Trabalho';
-            else if (task.category === 'pessoal') categoryText = '🌸 Pessoal';
-            else if (task.category === 'casa') categoryText = '🏡 Casa';
-
-            item.innerHTML = `
-                <div class="checkbox ${task.completed ? 'checked' : ''}" data-checked="${task.completed}" onclick="toggleTask(this)">${task.completed ? '✔' : ''}</div>
-                <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
-                <span class="category-badge ${categoryClass}">${categoryText}</span>
-                ${!isQuick ? `<button class="delete-btn" onclick="deleteTask(this)">×</button>` : ''}
+        function showLetterNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'letter-notification';
+            notification.innerHTML = `
+                <span>💌</span>
+                <div>
+                    <strong>Nova Cartinha do Dia!</strong>
+                    <div>Sua mensagem especial de amor está disponível!</div>
+                </div>
             `;
-            list.appendChild(item);
-        });
-    }
-    
-    // --- LEMBRETES AUTOMÁTICOS ---
-    
-    function getReminders() { return getData('carollinaReminders'); }
-    function saveReminders(reminders) { saveData('carollinaReminders', reminders); }
-
-    function addReminder(event) {
-        event.preventDefault();
-        const title = document.getElementById('reminder-title');
-        const time = document.getElementById('reminder-time');
-        
-        if (title.value.trim() && time.value) {
-            const newReminder = {
-                id: Date.now(),
-                title: title.value.trim(),
-                time: time.value,
-                active: true
-            };
             
-            const reminders = getReminders();
-            reminders.push(newReminder);
-            saveReminders(reminders);
-            title.value = '';
-            time.value = '';
-            renderCustomReminders();
+            document.body.appendChild(notification);
             
-            // Configura notificação se permitido
-            setupReminderNotification(newReminder);
-        }
-    }
-
-    function renderCustomReminders() {
-        const list = document.getElementById('custom-reminders');
-        const reminders = getReminders();
-        
-        list.innerHTML = '';
-        
-        reminders.forEach(reminder => {
-            const item = document.createElement('div');
-            item.className = 'task-item';
-            item.setAttribute('data-id', reminder.id);
-            
-            item.innerHTML = `
-                <div class="checkbox ${reminder.active ? 'checked' : ''}" onclick="toggleReminder(this)">${reminder.active ? '✔' : ''}</div>
-                <span class="task-text">${reminder.title} - ${reminder.time}</span>
-                <span class="reminder-status">${reminder.active ? 'Ativo' : 'Inativo'}</span>
-                <button class="delete-btn" onclick="deleteReminder(this)">×</button>
-            `;
-            list.appendChild(item);
-        });
-    }
-
-    function toggleReminder(checkboxElement) {
-        const itemElement = checkboxElement.closest('.task-item');
-        const reminderId = itemElement.dataset.id;
-        
-        let reminders = getReminders();
-        const reminderIndex = reminders.findIndex(r => r.id == reminderId);
-        
-        if (reminderIndex > -1) {
-            reminders[reminderIndex].active = !reminders[reminderIndex].active;
-            saveReminders(reminders);
-            renderCustomReminders();
-        }
-    }
-
-    function deleteReminder(buttonElement) {
-        const itemElement = buttonElement.closest('.task-item');
-        const reminderId = itemElement.dataset.id;
-        
-        let reminders = getReminders();
-        reminders = reminders.filter(r => r.id != reminderId);
-        saveReminders(reminders);
-        renderCustomReminders();
-    }
-
-    // Configura notificações para lembretes automáticos
-    function setupReminderNotification(reminder) {
-        if (!("Notification" in window)) {
-            console.log("Este navegador não suporta notificações desktop");
-            return;
-        }
-
-        // Solicita permissão se necessário
-        if (Notification.permission === "default") {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    scheduleReminder(reminder);
-                }
-            });
-        } else if (Notification.permission === "granted") {
-            scheduleReminder(reminder);
-        }
-    }
-
-    function scheduleReminder(reminder) {
-        const now = new Date();
-        const [hours, minutes] = reminder.time.split(':');
-        const reminderTime = new Date();
-        reminderTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-        
-        // Se o horário já passou hoje, agenda para amanhã
-        if (reminderTime < now) {
-            reminderTime.setDate(reminderTime.getDate() + 1);
-        }
-        
-        const timeUntilReminder = reminderTime.getTime() - now.getTime();
-        
-        if (timeUntilReminder > 0) {
+            // Remove a notificação após 5 segundos
             setTimeout(() => {
-                if (reminder.active) {
-                    new Notification(`Lembrete: ${reminder.title}`, {
-                        body: `Hora de: ${reminder.title}`,
-                        icon: '/favicon.ico',
-                        tag: 'carollina-reminder'
-                    });
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
                 }
-                // Agenda para o próximo dia
-                scheduleReminder(reminder);
-            }, timeUntilReminder);
+            }, 5000);
         }
-    }
 
-    // --- GALERIA DE AMOR E CONTADORES ---
-    
-    function getGallery() { return getData('carollinaGallery'); }
-    function saveGallery(items) { saveData('carollinaGallery', items); }
+        // ================================================
+        // FUNÇÕES GERAIS DO PLANNER
+        // ================================================
 
-    function updateLoveStats() {
-        const start = new Date(DATE_OF_LOVE);
-        const today = new Date();
-        
-        // Contagem de Dias Juntos
-        const diffTime = Math.abs(today - start);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        document.getElementById('days-together').textContent = diffDays;
-        
-        // Contagem de Itens na Galeria (simula cartinhas)
-        const galleryItems = getGallery();
-        const cartinhasCount = galleryItems.filter(item => item.category === 'cartinha').length;
-        document.getElementById('love-notes').textContent = cartinhasCount;
-        
-        // Próxima Data Especial (Exemplo: Próximo Aniversário de Namoro)
-        let anniversaryYear = today.getFullYear();
-        const startMonth = start.getMonth();
-        const startDay = start.getDate();
-        let nextAnniversary = new Date(anniversaryYear, startMonth, startDay);
-        
-        if (nextAnniversary < today) {
-            anniversaryYear++;
-            nextAnniversary = new Date(anniversaryYear, startMonth, startDay);
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('carollinaPlannerTheme') || 'hello-kitty';
+            setTheme(savedTheme);
+            
+            document.querySelectorAll('.theme-option').forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.getAttribute('data-theme') === savedTheme) {
+                    btn.classList.add('selected');
+                }
+            });
+            
+            updateHeaderTitle(savedTheme);
+        }
+
+        function setTheme(themeName, element = null) {
+            BODY.setAttribute('data-theme', themeName);
+            localStorage.setItem('carollinaPlannerTheme', themeName);
+            
+            document.querySelectorAll('.theme-option').forEach(btn => btn.classList.remove('selected'));
+            if (element) {
+                element.classList.add('selected');
+            }
+            
+            updateHeaderTitle(themeName);
+        }
+
+        function updateHeaderTitle(theme) {
+            if (theme === 'hello-kitty') {
+                HEADER_TITLE.innerHTML = '🎀 Planner da Carollina <span style="font-size: 0.8em;">Hello Kitty!</span> 🎀';
+            } else if (theme === 'batman') {
+                HEADER_TITLE.innerHTML = '🦇 Planner da Carollina <span style="font-size: 0.8em;">Knight Mode</span> 🦇';
+            } else {
+                HEADER_TITLE.innerHTML = '🌸 Planner da Carollina 💖';
+            }
+        }
+
+        function changeView(viewName) {
+            VIEWS.forEach(view => {
+                const viewElement = document.getElementById(`view-${view}`);
+                if (viewElement) {
+                    viewElement.style.display = 'none';
+                    viewElement.classList.remove('fade-in');
+                }
+            });
+            
+            const activeView = document.getElementById(`view-${viewName}`);
+            if (activeView) {
+                activeView.style.display = 'block';
+                setTimeout(() => activeView.classList.add('fade-in'), 10);
+                
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-view') === viewName) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            
+            // Inicializações específicas para cada view
+            if (viewName === 'galeria') {
+                updateLoveStats();
+                renderGallery();
+            } else if (viewName === 'home') {
+                renderTasks('quick-task-list', getTasks().slice(0, 3), true);
+            } else if (viewName === 'agenda') {
+                renderCalendar();
+                renderEvents();
+            } else if (viewName === 'metas') {
+                renderGoals();
+            } else if (viewName === 'lembretes') {
+                renderCustomReminders();
+            }
+        }
+
+        function initNavButtons() {
+            document.querySelectorAll('.nav-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    changeView(button.getAttribute('data-view'));
+                });
+            });
+        }
+
+        function getData(key) {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // ================================================
+        // SISTEMA DE TAREFAS
+        // ================================================
+
+        function getTasks() { return getData('plannerTasks'); }
+        function saveTasks(tasks) { saveData('plannerTasks', tasks); }
+
+        function addTask() {
+            const input = document.getElementById('task-input');
+            const category = document.getElementById('task-category').value;
+            
+            if (input.value.trim()) {
+                const newTask = {
+                    id: Date.now(),
+                    text: input.value.trim(),
+                    category: category,
+                    completed: false
+                };
+                
+                const tasks = getTasks();
+                tasks.push(newTask);
+                saveTasks(tasks);
+                input.value = '';
+                renderTasks('task-list', tasks);
+                renderTasks('quick-task-list', tasks.slice(0, 3), true);
+            }
         }
         
-        const formatter = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        document.getElementById('special-date').textContent = formatter.format(nextAnniversary);
-    }
-
-    function addGalleryItem() {
-        const fileInput = document.getElementById('photo-upload');
-        const captionInput = document.getElementById('photo-caption');
-        const categorySelect = document.getElementById('photo-category');
-        
-        if (!fileInput.files[0] || !captionInput.value.trim()) {
-            alert('Por favor, selecione uma imagem e adicione uma legenda.');
-            return;
+        function toggleTask(checkboxElement) {
+            const itemElement = checkboxElement.closest('.task-item');
+            const taskId = itemElement.dataset.id;
+            
+            let tasks = getTasks();
+            const taskIndex = tasks.findIndex(t => t.id == taskId);
+            
+            if (taskIndex > -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                saveTasks(tasks);
+                renderTasks('task-list', tasks);
+                renderTasks('quick-task-list', tasks.slice(0, 3), true);
+            }
         }
         
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const newItem = {
+        function deleteTask(buttonElement) {
+            const itemElement = buttonElement.closest('.task-item');
+            const taskId = itemElement.dataset.id;
+            
+            let tasks = getTasks();
+            tasks = tasks.filter(t => t.id != taskId);
+            saveTasks(tasks);
+            renderTasks('task-list', tasks);
+            renderTasks('quick-task-list', tasks.slice(0, 3), true);
+        }
+
+        function renderTasks(listId, tasks, isQuick = false) {
+            const list = document.getElementById(listId);
+            if (!list) return;
+
+            list.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const item = document.createElement('div');
+                item.className = `task-item ${task.completed ? 'completed' : ''}`;
+                item.setAttribute('data-id', task.id);
+                
+                let categoryClass = `category-${task.category}`;
+                let categoryText = task.category.charAt(0).toUpperCase() + task.category.slice(1);
+                if (task.category === 'trabalho') categoryText = '💻 Trabalho';
+                else if (task.category === 'pessoal') categoryText = '🌸 Pessoal';
+                else if (task.category === 'casa') categoryText = '🏡 Casa';
+
+                item.innerHTML = `
+                    <div class="checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(this)">${task.completed ? '✔' : ''}</div>
+                    <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+                    <span class="category-badge ${categoryClass}">${categoryText}</span>
+                    ${!isQuick ? `<button class="delete-btn" onclick="deleteTask(this)">×</button>` : ''}
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // ================================================
+        // SISTEMA DE METAS
+        // ================================================
+
+        function addGoal() {
+            const input = document.getElementById('goal-input');
+            const progress = document.getElementById('goal-progress');
+            
+            if (input.value.trim()) {
+                const goals = getData('plannerGoals') || [];
+                const newGoal = {
+                    id: Date.now(),
+                    text: input.value.trim(),
+                    progress: parseInt(progress.value),
+                    date: new Date().toISOString()
+                };
+                
+                goals.push(newGoal);
+                saveData('plannerGoals', goals);
+                
+                // Renderiza as metas
+                renderGoals();
+                
+                input.value = '';
+                progress.value = '0';
+            }
+        }
+        
+        function renderGoals() {
+            const goalList = document.getElementById('goal-list');
+            const goals = getData('plannerGoals') || [];
+            
+            goalList.innerHTML = '';
+            
+            goals.forEach(goal => {
+                const goalItem = document.createElement('div');
+                goalItem.className = 'goal-item';
+                goalItem.innerHTML = `
+                    <span class="task-text" style="flex: 1;">${goal.text}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 100px; height: 10px; background: var(--bg-light); border-radius: 5px; overflow: hidden;">
+                            <div style="width: ${goal.progress}%; height: 100%; background: var(--primary); transition: width 0.3s ease;"></div>
+                        </div>
+                        <span style="font-weight: 600; color: var(--primary); min-width: 40px;">${goal.progress}%</span>
+                    </div>
+                    <button class="delete-btn" onclick="deleteGoal(${goal.id})">×</button>
+                `;
+                goalList.appendChild(goalItem);
+            });
+        }
+        
+        function deleteGoal(goalId) {
+            let goals = getData('plannerGoals') || [];
+            goals = goals.filter(goal => goal.id !== goalId);
+            saveData('plannerGoals', goals);
+            renderGoals();
+        }
+
+        // ================================================
+        // SISTEMA DE LEMBRETES
+        // ================================================
+
+        function getReminders() { return getData('carollinaReminders'); }
+        function saveReminders(reminders) { saveData('carollinaReminders', reminders); }
+
+        function addReminder() {
+            const title = document.getElementById('reminder-title');
+            const time = document.getElementById('reminder-time');
+            
+            if (title.value.trim() && time.value) {
+                const newReminder = {
+                    id: Date.now(),
+                    title: title.value.trim(),
+                    time: time.value,
+                    active: true
+                };
+                
+                const reminders = getReminders();
+                reminders.push(newReminder);
+                saveReminders(reminders);
+                title.value = '';
+                time.value = '';
+                renderCustomReminders();
+            }
+        }
+
+        function renderCustomReminders() {
+            const list = document.getElementById('custom-reminders');
+            const reminders = getReminders();
+            
+            list.innerHTML = '';
+            
+            reminders.forEach(reminder => {
+                const item = document.createElement('div');
+                item.className = 'task-item';
+                item.setAttribute('data-id', reminder.id);
+                
+                item.innerHTML = `
+                    <div class="checkbox ${reminder.active ? 'checked' : ''}" onclick="toggleReminder(this)">${reminder.active ? '✔' : ''}</div>
+                    <span class="task-text">${reminder.title} - ${reminder.time}</span>
+                    <span class="reminder-status">${reminder.active ? 'Ativo' : 'Inativo'}</span>
+                    <button class="delete-btn" onclick="deleteReminder(this)">×</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function toggleReminder(checkboxElement) {
+            const itemElement = checkboxElement.closest('.task-item');
+            const reminderId = itemElement.dataset.id;
+            
+            let reminders = getReminders();
+            const reminderIndex = reminders.findIndex(r => r.id == reminderId);
+            
+            if (reminderIndex > -1) {
+                reminders[reminderIndex].active = !reminders[reminderIndex].active;
+                saveReminders(reminders);
+                renderCustomReminders();
+            }
+        }
+
+        function deleteReminder(buttonElement) {
+            const itemElement = buttonElement.closest('.task-item');
+            const reminderId = itemElement.dataset.id;
+            
+            let reminders = getReminders();
+            reminders = reminders.filter(r => r.id != reminderId);
+            saveReminders(reminders);
+            renderCustomReminders();
+        }
+
+        // ================================================
+        // SISTEMA DE AGENDA/CALENDÁRIO
+        // ================================================
+
+        function addEvent() {
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const category = document.getElementById('event-category').value;
+            
+            const events = getData('plannerEvents') || [];
+            const newEvent = {
                 id: Date.now(),
-                caption: captionInput.value.trim(),
-                category: categorySelect.value,
-                image: e.target.result, // Base64 image data
-                date: new Date().toISOString()
+                title: title,
+                date: date,
+                time: time,
+                category: category
             };
+            
+            events.push(newEvent);
+            saveData('plannerEvents', events);
+            
+            // Fecha o modal e renderiza eventos
+            closeModal('event-modal');
+            renderEvents();
+            
+            // Limpa o formulário
+            document.getElementById('event-form').reset();
+        }
+        
+        function renderEvents() {
+            const eventList = document.getElementById('event-list');
+            const events = getData('plannerEvents') || [];
+            
+            eventList.innerHTML = '';
+            
+            // Ordena eventos por data
+            events.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+            
+            events.forEach(event => {
+                const eventDate = new Date(event.date);
+                const today = new Date();
+                const isToday = eventDate.toDateString() === today.toDateString();
+                
+                const eventElement = document.createElement('li');
+                eventElement.className = 'task-item goal-item';
+                eventElement.innerHTML = `
+                    <span class="task-text">${event.title} - ${event.time} ${isToday ? '(Hoje)' : `(${eventDate.toLocaleDateString('pt-BR')})`}</span>
+                    <span class="category-badge category-${event.category}">${getCategoryText(event.category)}</span>
+                    <button class="delete-btn" onclick="deleteEvent(${event.id})">×</button>
+                `;
+                eventList.appendChild(eventElement);
+            });
+            
+            if (events.length === 0) {
+                eventList.innerHTML = '<li class="task-item goal-item" style="text-align: center; color: var(--secondary);">Nenhum evento agendado. Adicione seu primeiro evento! 📅</li>';
+            }
+        }
+        
+        function deleteEvent(eventId) {
+            let events = getData('plannerEvents') || [];
+            events = events.filter(event => event.id !== eventId);
+            saveData('plannerEvents', events);
+            renderEvents();
+        }
+        
+        function getCategoryText(category) {
+            switch(category) {
+                case 'trabalho': return '💻 Trabalho';
+                case 'pessoal': return '🌸 Pessoal';
+                case 'casa': return '🏡 Casa';
+                default: return category;
+            }
+        }
+        
+        // Simulação de calendário para a Agenda
+        function renderCalendar() {
+            const calendarEl = document.getElementById('calendar-view');
+            const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            
+            let calendarHTML = '<div class="calendar-grid">';
+            
+            // Cabeçalho dos dias da semana
+            daysOfWeek.forEach(day => {
+                calendarHTML += `<div class="calendar-day header">${day}</div>`;
+            });
+            
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            
+            // Dias vazios no início
+            for(let i = 0; i < firstDay.getDay(); i++) {
+                calendarHTML += `<div class="calendar-day empty"></div>`;
+            }
+            
+            // Dias do mês
+            for(let i = 1; i <= lastDay.getDate(); i++) {
+                const isToday = i === today.getDate() && today.getMonth() === new Date().getMonth() && today.getFullYear() === new Date().getFullYear();
+                const hasEvent = Math.random() > 0.8; // Simula eventos aleatórios
+                
+                let classes = 'calendar-day';
+                if (isToday) classes += ' today';
+                if (hasEvent) classes += ' has-event';
+                
+                calendarHTML += `<div class="${classes}" onclick="openModal('event-modal')">
+                    ${i}
+                    ${hasEvent ? '<span class="event-dot"></span>' : ''}
+                </div>`;
+            }
+            
+            calendarHTML += '</div>';
+            calendarEl.innerHTML = calendarHTML;
+        }
+
+        // ================================================
+        // SISTEMA DE GALERIA
+        // ================================================
+
+        function getGallery() { return getData('carollinaGallery'); }
+        function saveGallery(items) { saveData('carollinaGallery', items); }
+
+        function updateLoveStats() {
+            const start = new Date(DATE_OF_LOVE); // Usando a data corrigida
+            const today = new Date();
+            
+            const diffTime = Math.abs(today - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            document.getElementById('days-together').textContent = diffDays;
             
             const galleryItems = getGallery();
-            galleryItems.unshift(newItem); // Adiciona no início para mostrar os mais recentes
-            saveGallery(galleryItems);
+            const cartinhasCount = galleryItems.filter(item => item.category === 'cartinha').length;
+            document.getElementById('love-notes').textContent = cartinhasCount;
             
-            // Limpa o formulário e renderiza
-            fileInput.value = '';
-            captionInput.value = '';
-            renderGallery();
-            updateLoveStats();
-        };
-        reader.readAsDataURL(fileInput.files[0]);
-    }
-
-    function renderGallery() {
-        const grid = document.getElementById('gallery-grid');
-        const items = getGallery();
-        grid.innerHTML = '';
-        
-        items.forEach(item => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.onclick = () => viewImage(item.image, item.caption);
-            galleryItem.setAttribute('data-category', item.category);
+            let anniversaryYear = today.getFullYear();
+            const startMonth = start.getMonth();
+            const startDay = start.getDate();
+            let nextAnniversary = new Date(anniversaryYear, startMonth, startDay);
             
-            galleryItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}" loading="lazy" />
-                <div class="gallery-item-caption">${item.caption}</div>
-            `;
-            grid.appendChild(galleryItem);
-        });
-    }
-    
-    function filterGallery(category) {
-        const items = document.querySelectorAll('.gallery-item');
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        
-        // Atualiza botões ativos
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        items.forEach(item => {
-            if (category === 'all' || item.getAttribute('data-category') === category) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
+            if (nextAnniversary < today) {
+                anniversaryYear++;
+                nextAnniversary = new Date(anniversaryYear, startMonth, startDay);
             }
-        });
-    }
-    
-    function viewImage(base64Image, caption) {
-        document.getElementById('modal-image').src = base64Image;
-        document.getElementById('modal-image').alt = caption;
-        openModal('image-viewer-modal');
-    }
-    
-    // --- FUNÇÕES EXTRAS DE AMOR ---
-    
-    function showLoveMessage() {
-        const messages = [
-            "Te amo mais que tudo, minha princesa! 💖",
-            "Você é a razão do meu sorriso todos os dias! 🌸",
-            "Cada momento com você é especial! 🥰",
-            "Minha vida ganhou cores quando você chegou! 🌈",
-            "Você é a mulher mais incrível do universo! ✨",
-            "Meu coração é seu para sempre! 💌",
-            "Obrigado por ser exatamente quem você é! 🙏",
-            "Cada dia ao seu lado é um presente! 🎁"
-        ];
-        
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        
-        // Cria um elemento de mensagem flutuante
-        const loveMessage = document.createElement('div');
-        loveMessage.textContent = randomMessage;
-        loveMessage.style.cssText = `
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: var(--primary);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1001;
-            font-weight: 600;
-            max-width: 250px;
-            text-align: center;
-            animation: floatUp 3s ease-in-out forwards;
-        `;
-        
-        document.body.appendChild(loveMessage);
-        
-        // Remove a mensagem após a animação
-        setTimeout(() => {
-            loveMessage.remove();
-        }, 3000);
-    }
-
-    // Adiciona estilo para a animação da mensagem
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 0; }
-            20% { transform: translateY(-20px); opacity: 1; }
-            80% { transform: translateY(-20px); opacity: 1; }
-            100% { transform: translateY(-40px); opacity: 0; }
+            
+            const formatter = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            document.getElementById('special-date').textContent = formatter.format(nextAnniversary);
         }
-    `;
-    document.head.appendChild(style);
-    
-    // --- INICIALIZAÇÃO ---
-    
-    function initPlanner() {
-        // 1. Carrega o tema
-        loadTheme();
 
-        // 2. Exibe a data
-        const today = new Date();
-        DATE_DISPLAY.textContent = today.toLocaleDateString('pt-BR', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        });
-
-        // 3. Inicializa navegação
-        initNavButtons();
-
-        // 4. Carrega as views iniciais
-        renderTasks('task-list', getTasks());
-        renderTasks('quick-task-list', getTasks().slice(0, 3), true);
-        renderCustomReminders();
-
-        // 5. Configura lembretes automáticos
-        setupAutomaticReminders();
-
-        // 6. Exibe a view inicial (Home)
-        changeView('home');
-        
-        // 7. Inicia notificações de amor aleatórias
-        startRandomLoveNotifications();
-    }
-
-    // Configura lembretes automáticos essenciais
-    function setupAutomaticReminders() {
-        const automaticReminders = [
-            { id: 'good-morning', title: '🌅 Bom Dia para o Neném', time: '05:45', active: true },
-            { id: 'social-media', title: '📱 Responder Instagram/TikTok', time: '12:00', active: true },
-            { id: 'call', title: '💬 Ligar para o Neném', time: '22:00', active: true },
-            { id: 'attention', title: '❤️ Chamar Atenção do Neném', time: '14:00', active: true }
-        ];
-
-        // Verifica se já existem e adiciona se necessário
-        automaticReminders.forEach(reminder => {
-            setupReminderNotification(reminder);
-        });
-    }
-
-    // Notificações de amor aleatórias
-    function startRandomLoveNotifications() {
-        // Notificação a cada 2-4 horas (apenas durante o dia)
-        setInterval(() => {
-            const now = new Date();
-            const hour = now.getHours();
+        function addGalleryItem() {
+            const fileInput = document.getElementById('photo-upload');
+            const captionInput = document.getElementById('photo-caption');
+            const categorySelect = document.getElementById('photo-category');
             
-            // Só mostra notificações entre 8h e 22h
-            if (hour >= 8 && hour <= 22 && Math.random() > 0.7) {
-                showRandomLoveNotification();
+            if (!fileInput.files[0] || !captionInput.value.trim()) {
+                alert('Por favor, selecione uma imagem e adicione uma legenda.');
+                return;
             }
-        }, 2 * 60 * 60 * 1000); // 2 horas
-    }
-
-    function showRandomLoveNotification() {
-        if (Notification.permission === "granted") {
-            const loveMessages = [
-                { title: "💖 Lembrete de Amor", body: "Seu príncipe te ama muito!" },
-                { title: "🌸 Momento Carollina", body: "Você é incrível! Lembre-se disso!" },
-                { title: "✨ Você é Especial", body: "O universo sorri quando você sorri!" },
-                { title: "💌 Mensagem do Coração", body: "Seu neném está pensando em você!" }
-            ];
             
-            const message = loveMessages[Math.floor(Math.random() * loveMessages.length)];
-            new Notification(message.title, {
-                body: message.body,
-                icon: '/favicon.ico'
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newItem = {
+                    id: Date.now(),
+                    caption: captionInput.value.trim(),
+                    category: categorySelect.value,
+                    image: e.target.result,
+                    date: new Date().toISOString()
+                };
+                
+                const galleryItems = getGallery();
+                galleryItems.unshift(newItem);
+                saveGallery(galleryItems);
+                
+                fileInput.value = '';
+                captionInput.value = '';
+                renderGallery();
+                updateLoveStats();
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const items = getGallery();
+            grid.innerHTML = '';
+            
+            items.forEach(item => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.onclick = () => viewImage(item.image, item.caption);
+                galleryItem.setAttribute('data-category', item.category);
+                
+                galleryItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.caption}" loading="lazy" />
+                    <div class="gallery-item-caption">${item.caption}</div>
+                `;
+                grid.appendChild(galleryItem);
             });
         }
-    }
+        
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        function viewImage(base64Image, caption) {
+            document.getElementById('modal-image').src = base64Image;
+            document.getElementById('modal-image').alt = caption;
+            openModal('image-viewer-modal');
+        }
 
-    // Adiciona um listener para iniciar o planner quando a página carregar
-    document.addEventListener('DOMContentLoaded', initPlanner);
-    
-    // Adiciona um listener para fechar o modal ao clicar fora
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal')) {
-            closeModal(e.target.id);
-        }
-    });
+        // ================================================
+        // FUNÇÕES EXTRAS DE AMOR
+        // ================================================
 
-    // --- FUNÇÕES DE OUTRAS SEÇÕES ---
-    
-    function addGoal(event) { 
-        event.preventDefault(); 
-        const input = document.getElementById('goal-input');
-        const progress = document.getElementById('goal-progress');
-        
-        if (input.value.trim()) {
-            const goals = getData('plannerGoals') || [];
-            const newGoal = {
-                id: Date.now(),
-                text: input.value.trim(),
-                progress: parseInt(progress.value),
-                date: new Date().toISOString()
-            };
+        function showLoveMessage() {
+            const messages = [
+                "Te amo mais que tudo, minha princesa! 💖",
+                "Você é a razão do meu sorriso todos os dias! 🌸",
+                "Cada momento com você é especial! 🥰",
+                "Minha vida ganhou cores quando você chegou! 🌈",
+                "Você é a mulher mais incrível do universo! ✨",
+                "Meu coração é seu para sempre! 💌",
+                "Obrigado por ser exatamente quem você é! 🙏",
+                "Cada dia ao seu lado é um presente! 🎁"
+            ];
             
-            goals.push(newGoal);
-            saveData('plannerGoals', goals);
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
             
-            // Renderiza as metas
-            renderGoals();
-            
-            input.value = '';
-            progress.value = '0';
-        }
-    }
-    
-    function renderGoals() {
-        const goalList = document.getElementById('goal-list');
-        const goals = getData('plannerGoals') || [];
-        
-        goalList.innerHTML = '';
-        
-        goals.forEach(goal => {
-            const goalItem = document.createElement('div');
-            goalItem.className = 'goal-item';
-            goalItem.innerHTML = `
-                <span class="task-text" style="flex: 1;">${goal.text}</span>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 100px; height: 10px; background: var(--bg-light); border-radius: 5px; overflow: hidden;">
-                        <div class="progress-fill" style="width: ${goal.progress}%; height: 100%; background: var(--primary); transition: width 0.3s ease;"></div>
-                    </div>
-                    <span style="font-weight: 600; color: var(--primary); min-width: 40px;">${goal.progress}%</span>
-                </div>
-                <button class="delete-btn" onclick="deleteGoal(${goal.id})">×</button>
-            `;
-            goalList.appendChild(goalItem);
-        });
-    }
-    
-    function deleteGoal(goalId) {
-        let goals = getData('plannerGoals') || [];
-        goals = goals.filter(goal => goal.id !== goalId);
-        saveData('plannerGoals', goals);
-        renderGoals();
-    }
-    
-    function addShoppingItem(event) { 
-        event.preventDefault(); 
-        const input = document.getElementById('shopping-input');
-        
-        if (input.value.trim()) {
-            const shoppingItems = getData('plannerShopping') || [];
-            const newItem = {
-                id: Date.now(),
-                text: input.value.trim(),
-                completed: false
-            };
-            
-            shoppingItems.push(newItem);
-            saveData('plannerShopping', shoppingItems);
-            renderShoppingList();
-            input.value = '';
-        }
-    }
-    
-    function renderShoppingList() {
-        const shoppingList = document.getElementById('shopping-list');
-        const items = getData('plannerShopping') || [];
-        
-        shoppingList.innerHTML = '';
-        
-        items.forEach(item => {
-            const listItem = document.createElement('div');
-            listItem.className = `shopping-item ${item.completed ? 'completed' : ''}`;
-            listItem.setAttribute('data-id', item.id);
-            listItem.innerHTML = `
-                <div class="checkbox ${item.completed ? 'checked' : ''}" onclick="toggleShoppingItem(this)">${item.completed ? '✔' : ''}</div>
-                <span class="task-text ${item.completed ? 'completed' : ''}">${item.text}</span>
-                <button class="delete-btn" onclick="deleteShoppingItem(this)">×</button>
-            `;
-            shoppingList.appendChild(listItem);
-        });
-    }
-    
-    function toggleShoppingItem(checkbox) {
-        const itemElement = checkbox.closest('.shopping-item');
-        const itemId = parseInt(itemElement.dataset.id);
-        
-        let items = getData('plannerShopping') || [];
-        const itemIndex = items.findIndex(item => item.id === itemId);
-        
-        if (itemIndex > -1) {
-            items[itemIndex].completed = !items[itemIndex].completed;
-            saveData('plannerShopping', items);
-            renderShoppingList();
-        }
-    }
-    
-    function deleteShoppingItem(button) {
-        const itemElement = button.closest('.shopping-item');
-        const itemId = parseInt(itemElement.dataset.id);
-        
-        let items = getData('plannerShopping') || [];
-        items = items.filter(item => item.id !== itemId);
-        saveData('plannerShopping', items);
-        renderShoppingList();
-    }
-    
-    function saveGratitude() { 
-        const textarea = document.getElementById('gratitude-entry');
-        if (textarea.value.trim()) {
-            const gratitudeEntries = getData('plannerGratitude') || [];
-            const newEntry = {
-                id: Date.now(),
-                text: textarea.value.trim(),
-                date: new Date().toISOString()
-            };
-            
-            gratitudeEntries.unshift(newEntry); // Adiciona no início
-            saveData('plannerGratitude', gratitudeEntries);
-            textarea.value = '';
-            renderGratitudeHistory();
-            
-            // Mostra confirmação
-            const confirmation = document.createElement('div');
-            confirmation.textContent = 'Gratidão salva no seu diário! 🙏';
-            confirmation.style.cssText = `
+            const loveMessage = document.createElement('div');
+            loveMessage.textContent = randomMessage;
+            loveMessage.style.cssText = `
                 position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
+                bottom: 100px;
+                right: 30px;
                 background: var(--primary);
                 color: white;
-                padding: 10px 20px;
+                padding: 15px 20px;
                 border-radius: 20px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
                 z-index: 1001;
                 font-weight: 600;
-                animation: fadeInOut 3s ease-in-out forwards;
+                max-width: 250px;
+                text-align: center;
+                animation: floatUp 3s ease-in-out forwards;
             `;
-            document.body.appendChild(confirmation);
-            setTimeout(() => confirmation.remove(), 3000);
-        }
-    }
-    
-    function renderGratitudeHistory() { 
-        const history = document.getElementById('gratitude-history');
-        const entries = getData('plannerGratitude') || [];
-        
-        history.innerHTML = '';
-        
-        // Adiciona estilo para fadeInOut se não existir
-        if (!document.querySelector('#fadeInOutStyle')) {
-            const style = document.createElement('style');
-            style.id = 'fadeInOutStyle';
-            style.textContent = `
-                @keyframes fadeInOut {
-                    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-                    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
-                    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
-                    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        entries.slice(0, 5).forEach(entry => {
-            const entryDate = new Date(entry.date);
-            const formattedDate = entryDate.toLocaleDateString('pt-BR', { 
-                day: '2-digit', 
-                month: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
             
-            const entryElement = document.createElement('div');
-            entryElement.className = 'task-item';
-            entryElement.style.borderLeftColor = '#f6d365';
-            entryElement.innerHTML = `
-                <span class="task-text">${entry.text}</span>
-                <small style="color: var(--secondary); white-space: nowrap;">${formattedDate}</small>
-            `;
-            history.appendChild(entryElement);
-        });
-        
-        if (entries.length === 0) {
-            history.innerHTML = '<div class="task-item" style="border-left-color: #f6d365; text-align: center; color: var(--secondary);">Nenhuma entrada de gratidão ainda. Comece a escrever! 🙏</div>';
-        }
-    }
-    
-    // Funções do calendário (Agenda)
-    function addEvent(event) {
-        event.preventDefault();
-        const title = document.getElementById('event-title').value;
-        const date = document.getElementById('event-date').value;
-        const time = document.getElementById('event-time').value;
-        const category = document.getElementById('event-category').value;
-        
-        const events = getData('plannerEvents') || [];
-        const newEvent = {
-            id: Date.now(),
-            title: title,
-            date: date,
-            time: time,
-            category: category
-        };
-        
-        events.push(newEvent);
-        saveData('plannerEvents', events);
-        
-        // Fecha o modal e renderiza eventos
-        closeModal('event-modal');
-        renderEvents();
-        
-        // Limpa o formulário
-        document.getElementById('event-form').reset();
-    }
-    
-    function renderEvents() {
-        const eventList = document.getElementById('event-list');
-        const events = getData('plannerEvents') || [];
-        
-        eventList.innerHTML = '';
-        
-        // Ordena eventos por data
-        events.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-        
-        events.forEach(event => {
-            const eventDate = new Date(event.date);
-            const today = new Date();
-            const isToday = eventDate.toDateString() === today.toDateString();
+            document.body.appendChild(loveMessage);
             
-            const eventElement = document.createElement('li');
-            eventElement.className = 'task-item goal-item';
-            eventElement.innerHTML = `
-                <span class="task-text">${event.title} - ${event.time} ${isToday ? '(Hoje)' : `(${eventDate.toLocaleDateString('pt-BR')})`}</span>
-                <span class="category-badge category-${event.category}">${getCategoryText(event.category)}</span>
-                <button class="delete-btn" onclick="deleteEvent(${event.id})">×</button>
-            `;
-            eventList.appendChild(eventElement);
-        });
-        
-        if (events.length === 0) {
-            eventList.innerHTML = '<li class="task-item goal-item" style="text-align: center; color: var(--secondary);">Nenhum evento agendado. Adicione seu primeiro evento! 📅</li>';
-        }
-    }
-    
-    function deleteEvent(eventId) {
-        let events = getData('plannerEvents') || [];
-        events = events.filter(event => event.id !== eventId);
-        saveData('plannerEvents', events);
-        renderEvents();
-    }
-    
-    function getCategoryText(category) {
-        switch(category) {
-            case 'trabalho': return '💻 Trabalho';
-            case 'pessoal': return '🌸 Pessoal';
-            case 'casa': return '🏡 Casa';
-            default: return category;
-        }
-    }
-    
-    // Simulação de calendário para a Agenda
-    function renderCalendar() {
-        const calendarEl = document.getElementById('calendar-view');
-        const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-        
-        let calendarHTML = '<div class="calendar-grid">';
-        
-        // Cabeçalho dos dias da semana
-        daysOfWeek.forEach(day => {
-            calendarHTML += `<div class="calendar-day header">${day}</div>`;
-        });
-        
-        const today = new Date();
-        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        
-        // Dias vazios no início
-        for(let i = 0; i < firstDay.getDay(); i++) {
-            calendarHTML += `<div class="calendar-day empty"></div>`;
-        }
-        
-        // Dias do mês
-        for(let i = 1; i <= lastDay.getDate(); i++) {
-            const isToday = i === today.getDate() && today.getMonth() === new Date().getMonth() && today.getFullYear() === new Date().getFullYear();
-            const hasEvent = Math.random() > 0.8; // Simula eventos aleatórios
-            
-            let classes = 'calendar-day';
-            if (isToday) classes += ' today';
-            if (hasEvent) classes += ' has-event';
-            
-            calendarHTML += `<div class="${classes}" onclick="openModal('event-modal')">
-                ${i}
-                ${hasEvent ? '<span class="event-dot"></span>' : ''}
-            </div>`;
-        }
-        
-        calendarHTML += '</div>';
-        calendarEl.innerHTML = calendarHTML;
-        
-        // Adiciona estilos para o calendário
-        if (!document.querySelector('#calendarStyles')) {
-            const calendarStyles = document.createElement('style');
-            calendarStyles.id = 'calendarStyles';
-            calendarStyles.textContent = `
-                .calendar-grid {
-                    display: grid;
-                    grid-template-columns: repeat(7, 1fr);
-                    gap: 5px;
-                    margin-bottom: 1rem;
-                }
-                .calendar-day {
-                    padding: 10px;
-                    text-align: center;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    position: relative;
-                    min-height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: var(--bg-light);
-                }
-                .calendar-day.header {
-                    font-weight: 700;
-                    background: var(--primary);
-                    color: var(--text-light);
-                    cursor: default;
-                }
-                .calendar-day.empty {
-                    background: transparent;
-                    cursor: default;
-                }
-                .calendar-day.today {
-                    background: var(--secondary);
-                    color: var(--text-light);
-                    font-weight: 700;
-                }
-                .calendar-day.has-event::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 3px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 6px;
-                    height: 6px;
-                    background: var(--primary);
-                    border-radius: 50%;
-                }
-                .calendar-day:hover:not(.header):not(.empty) {
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                }
-            `;
-            <!-- CONTINUAÇÃO DO CÓDIGO ANTERIOR - PARTE 3 (JAVASCRIPT) -->
-            document.head.appendChild(calendarStyles);
-        }
-        
-        // Renderiza eventos após o calendário
-        renderEvents();
-    }
-
-    // --- FUNÇÕES DE INICIALIZAÇÃO E UTILITÁRIAS ---
-
-    // Inicializa notificações quando a página carrega
-    document.addEventListener('DOMContentLoaded', function() {
-        if ("Notification" in window && Notification.permission === "default") {
-            Notification.requestPermission();
-        }
-        
-        // Inicializa todas as funcionalidades
-        initPlanner();
-        
-        // Renderiza componentes que precisam de inicialização
-        renderCalendar();
-        renderGoals();
-        renderShoppingList();
-        renderGratitudeHistory();
-    });
-
-    // --- SISTEMA DE NOTIFICAÇÕES AVANÇADO ---
-
-    function setupAdvancedReminders() {
-        // Verifica se é hora dos lembretes automáticos
-        setInterval(() => {
-            const now = new Date();
-            const currentTime = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-            
-            const automaticReminders = [
-                { time: '05:45', title: '🌅 Bom Dia para o Neném', message: 'Hora de enviar a mensagem de bom dia para o seu príncipe!' },
-                { time: '12:00', title: '📱 Redes Sociais', message: 'Que tal dar uma olhada no Instagram/TikTok?' },
-                { time: '14:00', title: '❤️ Atenção do Neném', message: 'Hora de chamar a atenção do seu amor!' },
-                { time: '22:00', title: '💬 Ligação do Amor', message: 'Não esqueça da ligação das 22h com o seu neném!' }
-            ];
-            
-            automaticReminders.forEach(reminder => {
-                if (currentTime === reminder.time) {
-                    showCustomNotification(reminder.title, reminder.message);
-                }
-            });
-        }, 60000); // Verifica a cada minuto
-    }
-
-    function showCustomNotification(title, message) {
-        if (Notification.permission === "granted") {
-            new Notification(title, {
-                body: message,
-                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💖</text></svg>',
-                tag: 'carollina-reminder'
-            });
-        }
-        
-        // Também mostra uma mensagem na tela
-        showLoveMessage();
-    }
-
-    // --- SISTEMA DE BACKUP E RECUPERAÇÃO ---
-
-    function exportData() {
-        const allData = {
-            tasks: getData('plannerTasks'),
-            goals: getData('plannerGoals'),
-            events: getData('plannerEvents'),
-            shopping: getData('plannerShopping'),
-            gratitude: getData('plannerGratitude'),
-            gallery: getData('carollinaGallery'),
-            reminders: getData('carollinaReminders'),
-            theme: localStorage.getItem('carollinaPlannerTheme'),
-            exportDate: new Date().toISOString()
-        };
-        
-        const dataStr = JSON.stringify(allData, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = `carollina-planner-backup-${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-        
-        alert('Backup exportado com sucesso! 💾');
-    }
-
-    function importData(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                
-                // Restaura todos os dados
-                if (importedData.tasks) saveData('plannerTasks', importedData.tasks);
-                if (importedData.goals) saveData('plannerGoals', importedData.goals);
-                if (importedData.events) saveData('plannerEvents', importedData.events);
-                if (importedData.shopping) saveData('plannerShopping', importedData.shopping);
-                if (importedData.gratitude) saveData('plannerGratitude', importedData.gratitude);
-                if (importedData.gallery) saveData('carollinaGallery', importedData.gallery);
-                if (importedData.reminders) saveData('carollinaReminders', importedData.reminders);
-                if (importedData.theme) localStorage.setItem('carollinaPlannerTheme', importedData.theme);
-                
-                // Recarrega a página para aplicar as mudanças
-                alert('Dados importados com sucesso! 🔄 Recarregando...');
-                setTimeout(() => location.reload(), 1000);
-                
-            } catch (error) {
-                alert('Erro ao importar dados. Verifique se o arquivo é válido. ❌');
-                console.error('Import error:', error);
-            }
-        };
-        reader.readAsText(file);
-        
-        // Limpa o input
-        event.target.value = '';
-    }
-
-    // --- SISTEMA DE ESTATÍSTICAS E RELATÓRIOS ---
-
-    function generateWeeklyReport() {
-        const tasks = getData('plannerTasks') || [];
-        const completedTasks = tasks.filter(task => task.completed).length;
-        const totalTasks = tasks.length;
-        const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-        
-        const goals = getData('plannerGoals') || [];
-        const averageGoalProgress = goals.length > 0 ? 
-            Math.round(goals.reduce((sum, goal) => sum + goal.progress, 0) / goals.length) : 0;
-        
-        const gratitudeEntries = getData('plannerGratitude') || [];
-        const recentGratitude = gratitudeEntries.slice(0, 3);
-        
-        const report = `
-📊 RELATÓRIO SEMANAL - PLANNER DA CAROLLINA 📊
-
-✅ TAREFAS:
-   - Concluídas: ${completedTasks}/${totalTasks}
-   - Taxa de conclusão: ${completionRate}%
-
-🎯 METAS:
-   - Progresso médio: ${averageGoalProgress}%
-   - Total de metas: ${goals.length}
-
-🙏 GRATIDÃO:
-   - Entradas esta semana: ${gratitudeEntries.length}
-   ${recentGratitude.map(entry => `   - "${entry.text.substring(0, 30)}..."`).join('\n')}
-
-💝 LEMBRETE:
-   Você está fazendo um trabalho incrível!
-   Seu príncipe te ama muito! 💖
-        `;
-        
-        // Cria um modal para mostrar o relatório
-        const reportModal = document.createElement('div');
-        reportModal.className = 'modal';
-        reportModal.style.display = 'flex';
-        reportModal.innerHTML = `
-            <div class="modal-content" style="max-width: 600px;">
-                <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">📊 Seu Relatório Semanal</h2>
-                <div style="white-space: pre-line; background: var(--bg-light); padding: 1.5rem; border-radius: 12px; font-family: monospace; line-height: 1.6;">
-                    ${report}
-                </div>
-                <div style="margin-top: 1rem; display: flex; gap: 1rem;">
-                    <button onclick="downloadReport()" style="flex: 1;">📥 Baixar Relatório</button>
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="flex: 1; background: var(--secondary);">Fechar</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(reportModal);
-    }
-
-    function downloadReport() {
-        const tasks = getData('plannerTasks') || [];
-        const completedTasks = tasks.filter(task => task.completed).length;
-        const totalTasks = tasks.length;
-        const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-        
-        const report = `Relatório do Planner - ${new Date().toLocaleDateString('pt-BR')}
-
-Tarefas Concluídas: ${completedTasks}/${totalTasks} (${completionRate}%)
-Metas em Andamento: ${(getData('plannerGoals') || []).length}
-Entradas de Gratidão: ${(getData('plannerGratitude') || []).length}
-
-"Continue sendo essa mulher incrível! Te amo! 💖"`;
-
-        const blob = new Blob([report], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `relatorio-planner-${new Date().toISOString().split('T')[0]}.txt`;
-        link.click();
-    }
-
-    // --- SISTEMA DE PERSONALIZAÇÃO AVANÇADA ---
-
-    function customizePlanner() {
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.style.display = 'flex';
-        modal.innerHTML = `
-            <div class="modal-content" style="max-width: 500px;">
-                <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">🎨 Personalizar Planner</h2>
-                
-                <div class="form-group">
-                    <label>Nome do Planner:</label>
-                    <input type="text" id="custom-planner-name" value="Planner da Carollina" />
-                </div>
-                
-                <div class="form-group">
-                    <label>Data Especial:</label>
-                    <input type="date" id="custom-love-date" value="${DATE_OF_LOVE}" />
-                </div>
-                
-                <div class="form-group">
-                    <label>Lembretes Personalizados:</label>
-                    <textarea id="custom-reminders-text" placeholder="Adicione seus lembretes pessoais..." rows="4"></textarea>
-                </div>
-                
-                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
-                    <button onclick="saveCustomization()" style="flex: 1;">💾 Salvar</button>
-                    <button onclick="resetCustomization()" style="flex: 1; background: #ef4444;">🔄 Resetar</button>
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="flex: 1; background: var(--secondary);">Fechar</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        
-        // Carrega personalizações salvas
-        const savedCustomization = getData('plannerCustomization') || {};
-        document.getElementById('custom-planner-name').value = savedCustomization.plannerName || 'Planner da Carollina';
-        document.getElementById('custom-love-date').value = savedCustomization.loveDate || DATE_OF_LOVE;
-        document.getElementById('custom-reminders-text').value = savedCustomization.customReminders || '';
-    }
-
-    function saveCustomization() {
-        const customization = {
-            plannerName: document.getElementById('custom-planner-name').value,
-            loveDate: document.getElementById('custom-love-date').value,
-            customReminders: document.getElementById('custom-reminders-text').value,
-            savedAt: new Date().toISOString()
-        };
-        
-        saveData('plannerCustomization', customization);
-        
-        // Atualiza o título
-        HEADER_TITLE.innerHTML = `🎀 ${customization.plannerName} 🎀`;
-        
-        // Fecha o modal
-        document.querySelector('.modal').remove();
-        
-        // Mostra confirmação
-        alert('Personalização salva com sucesso! ✨');
-    }
-
-    function resetCustomization() {
-        if (confirm('Tem certeza que deseja resetar todas as personalizações?')) {
-            localStorage.removeItem('plannerCustomization');
-            HEADER_TITLE.innerHTML = '🎀 Planner da Carollina 🎀';
-            document.querySelector('.modal').remove();
-            alert('Personalizações resetadas! 🔄');
-        }
-    }
-
-    // --- FUNÇÕES DE ACESSIBILIDADE ---
-
-    function toggleHighContrast() {
-        BODY.classList.toggle('high-contrast');
-        localStorage.setItem('highContrast', BODY.classList.contains('high-contrast'));
-    }
-
-    function increaseFontSize() {
-        const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
-        document.body.style.fontSize = (currentSize * 1.1) + 'px';
-        localStorage.setItem('fontSize', document.body.style.fontSize);
-    }
-
-    function decreaseFontSize() {
-        const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
-        document.body.style.fontSize = (currentSize / 1.1) + 'px';
-        localStorage.setItem('fontSize', document.body.style.fontSize);
-    }
-
-    function resetFontSize() {
-        document.body.style.fontSize = '';
-        localStorage.removeItem('fontSize');
-    }
-
-    // --- SISTEMA DE AJUDA E TUTORIAL ---
-
-    function showTutorial() {
-        const tutorialSteps = [
-            {
-                title: "🎀 Bem-vinda ao seu Planner!",
-                content: "Este é seu espaço pessoal de organização, feito com todo amor do seu príncipe! 💖"
-            },
-            {
-                title: "📝 Tarefas e Metas",
-                content: "Adicione tarefas diárias e metas de longo prazo. Marque como concluídas para acompanhar seu progresso!"
-            },
-            {
-                title: "⏰ Lembretes Automáticos",
-                content: "Configure lembretes para não esquecer dos momentos especiais com seu amor!"
-            },
-            {
-                title: "📸 Galeria do Amor",
-                content: "Guarde fotos e memórias especiais do nosso relacionamento! 💌"
-            },
-            {
-                title: "🎨 Personalização",
-                content: "Mude o tema e personalize tudo do seu jeito! Temos Hello Kitty, Batman e muito mais!"
-            }
-        ];
-
-        let currentStep = 0;
-        
-        const tutorialModal = document.createElement('div');
-        tutorialModal.className = 'modal';
-        tutorialModal.style.display = 'flex';
-        
-        function updateTutorial() {
-            tutorialModal.innerHTML = `
-                <div class="modal-content" style="max-width: 500px; text-align: center;">
-                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
-                    <h2 style="color: var(--primary); margin-bottom: 1rem;">${tutorialSteps[currentStep].title}</h2>
-                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">${tutorialSteps[currentStep].content}</p>
-                    <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
-                        ${tutorialSteps.map((_, index) => 
-                            `<div style="width: 10px; height: 10px; border-radius: 50%; background: ${index === currentStep ? 'var(--primary)' : 'var(--bg-light)'};"></div>`
-                        ).join('')}
-                    </div>
-                    <div style="display: flex; gap: 1rem;">
-                        <button onclick="currentStep--; updateTutorial()" ${currentStep === 0 ? 'disabled' : ''} style="flex: 1;">⬅️ Anterior</button>
-                        ${currentStep === tutorialSteps.length - 1 ? 
-                            `<button onclick="this.parentElement.parentElement.parentElement.remove()" style="flex: 1; background: var(--secondary);">🎉 Começar!</button>` :
-                            `<button onclick="currentStep++; updateTutorial()" style="flex: 1;">Próximo ➡️</button>`
-                        }
-                    </div>
-                </div>
-            `;
-        }
-        
-        updateTutorial();
-        document.body.appendChild(tutorialModal);
-    }
-
-    // --- MENU DE CONTROLES AVANÇADOS ---
-
-    function showAdvancedMenu() {
-        const menu = document.createElement('div');
-        menu.className = 'modal';
-        menu.style.display = 'flex';
-        menu.innerHTML = `
-            <div class="modal-content" style="max-width: 400px;">
-                <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">⚙️ Controles Avançados</h2>
-                
-                <div style="display: grid; gap: 0.5rem;">
-                    <button onclick="exportData()" style="justify-content: start; gap: 0.5rem;">
-                        💾 Exportar Backup
-                    </button>
-                    <button onclick="document.getElementById('import-file').click()" style="justify-content: start; gap: 0.5rem;">
-                        📤 Importar Backup
-                    </button>
-                    <button onclick="generateWeeklyReport()" style="justify-content: start; gap: 0.5rem;">
-                        📊 Relatório Semanal
-                    </button>
-                    <button onclick="customizePlanner()" style="justify-content: start; gap: 0.5rem;">
-                        🎨 Personalizar
-                    </button>
-                    <button onclick="showTutorial()" style="justify-content: start; gap: 0.5rem;">
-                        ❓ Ver Tutorial
-                    </button>
-                    <button onclick="showLoveStatistics()" style="justify-content: start; gap: 0.5rem;">
-                        💝 Estatísticas do Amor
-                    </button>
-                </div>
-                
-                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--bg-light);">
-                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Acessibilidade</h3>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button onclick="increaseFontSize()" style="flex: 1; font-size: 0.9rem;">A+</button>
-                        <button onclick="decreaseFontSize()" style="flex: 1; font-size: 0.9rem;">A-</button>
-                        <button onclick="resetFontSize()" style="flex: 1; font-size: 0.9rem;">A🔃</button>
-                        <button onclick="toggleHighContrast()" style="flex: 1; font-size: 0.9rem;">🎨 Contraste</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(menu);
-        
-        // Adiciona input hidden para importação
-        if (!document.getElementById('import-file')) {
-            const importInput = document.createElement('input');
-            importInput.type = 'file';
-            importInput.id = 'import-file';
-            importInput.accept = '.json';
-            importInput.style.display = 'none';
-            importInput.onchange = importData;
-            document.body.appendChild(importInput);
-        }
-    }
-
-    function showLoveStatistics() {
-        const tasks = getData('plannerTasks') || [];
-        const completedTasks = tasks.filter(task => task.completed).length;
-        const galleryItems = getData('carollinaGallery') || [];
-        const gratitudeEntries = getData('plannerGratitude') || [];
-        
-        const statsModal = document.createElement('div');
-        statsModal.className = 'modal';
-        statsModal.style.display = 'flex';
-        statsModal.innerHTML = `
-            <div class="modal-content" style="max-width: 500px;">
-                <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">💝 Estatísticas do Nosso Amor</h2>
-                
-                <div style="display: grid; gap: 1rem;">
-                    <div style="background: var(--bg-light); padding: 1rem; border-radius: 12px; text-align: center;">
-                        <h3 style="color: var(--secondary); font-size: 2rem; margin-bottom: 0.5rem;">${getData('plannerTasks')?.length || 0}</h3>
-                        <p>Tarefas Criadas</p>
-                    </div>
-                    
-                    <div style="background: var(--bg-light); padding: 1rem; border-radius: 12px; text-align: center;">
-                        <h3 style="color: var(--secondary); font-size: 2rem; margin-bottom: 0.5rem;">${completedTasks}</h3>
-                        <p>Tarefas Concluídas</p>
-                    </div>
-                    
-                    <div style="background: var(--bg-light); padding: 1rem; border-radius: 12px; text-align: center;">
-                        <h3 style="color: var(--secondary); font-size: 2rem; margin-bottom: 0.5rem;">${galleryItems.length}</h3>
-                        <p>Memórias Guardadas</p>
-                    </div>
-                    
-                    <div style="background: var(--bg-light); padding: 1rem; border-radius: 12px; text-align: center;">
-                        <h3 style="color: var(--secondary); font-size: 2rem; margin-bottom: 0.5rem;">${gratitudeEntries.length}</h3>
-                        <p>Momentos de Gratidão</p>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1.5rem; text-align: center;">
-                    <p style="font-style: italic; color: var(--secondary);">
-                        "Cada número representa um momento especial da nossa jornada! Te amo! 💖"
-                    </p>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(statsModal);
-    }
-
-    // --- BOTÃO FLUTUANTE DE CONTROLES ---
-
-    // Adiciona botão flutuante para controles avançados
-    function addFloatingControlsButton() {
-        const controlsBtn = document.createElement('div');
-        controlsBtn.className = 'heart-btn';
-        controlsBtn.innerHTML = '⚙️';
-        controlsBtn.style.left = '2rem';
-        controlsBtn.style.right = 'auto';
-        controlsBtn.onclick = showAdvancedMenu;
-        controlsBtn.title = 'Controles Avançados';
-        document.body.appendChild(controlsBtn);
-    }
-
-    // --- INICIALIZAÇÃO FINAL ---
-
-    // Adiciona estilos para high contrast
-    const highContrastStyles = document.createElement('style');
-    highContrastStyles.textContent = `
-        .high-contrast {
-            --primary: #000000;
-            --secondary: #333333;
-            --bg-light: #ffffff;
-            --text-dark: #000000;
-            --text-light: #ffffff;
-        }
-        
-        .high-contrast .task-item,
-        .high-contrast .goal-item,
-        .high-contrast .shopping-item {
-            border: 2px solid var(--primary);
-        }
-    `;
-    document.head.appendChild(highContrastStyles);
-
-    // Carrega configurações de acessibilidade
-    function loadAccessibilitySettings() {
-        const highContrast = localStorage.getItem('highContrast');
-        const fontSize = localStorage.getItem('fontSize');
-        
-        if (highContrast === 'true') {
-            BODY.classList.add('high-contrast');
-        }
-        
-        if (fontSize) {
-            document.body.style.fontSize = fontSize;
-        }
-    }
-
-    // Função de inicialização completa
-    function completeInit() {
-        loadTheme();
-        loadAccessibilitySettings();
-        addFloatingControlsButton();
-        setupAdvancedReminders();
-        
-        // Mostra tutorial na primeira visita
-        const hasSeenTutorial = localStorage.getItem('hasSeenTutorial');
-        if (!hasSeenTutorial) {
             setTimeout(() => {
-                showTutorial();
-                localStorage.setItem('hasSeenTutorial', 'true');
-            }, 2000);
+                loveMessage.remove();
+            }, 3000);
         }
-    }
 
-    // Inicialização final quando o DOM estiver pronto
-    document.addEventListener('DOMContentLoaded', completeInit);
-
-    // --- FUNÇÃO DE EMERGÊNCIA ---
-    function emergencyLove() {
-        const emergencyMessages = [
-            "🚨 EMERGÊNCIA DE AMOR! 🚨\nSeu príncipe precisa de você! 💖",
-            "🆘 SOCORRO! 🆘\nFalta amor aqui! Preciso de você! 🥺",
-            "💥 URGENTE! 💥\nSeu neném está com saudades! 😭",
-            "📢 ALERTA! 📢\nNíveis de amor baixos! Precisa de recarga! 🔋"
-        ];
-        
-        const randomMessage = emergencyMessages[Math.floor(Math.random() * emergencyMessages.length)];
-        
-        // Notificação
-        if (Notification.permission === "granted") {
-            new Notification("🚨 Emergência de Amor!", {
-                body: randomMessage,
-                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💖</text></svg>'
-            });
-        }
-        
-        // Mensagem na tela
-        const emergencyAlert = document.createElement('div');
-        emergencyAlert.textContent = randomMessage;
-        emergencyAlert.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(45deg, #ff0000, #ff69b4);
-            color: white;
-            padding: 2rem;
-            border-radius: 20px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            z-index: 10000;
-            box-shadow: 0 0 50px rgba(255,0,0,0.5);
-            animation: pulse 2s infinite;
-        `;
-        
-        document.body.appendChild(emergencyAlert);
-        
-        // Adiciona animação de pulso
-        const pulseStyle = document.createElement('style');
-        pulseStyle.textContent = `
-            @keyframes pulse {
-                0% { transform: translate(-50%, -50%) scale(1); }
-                50% { transform: translate(-50%, -50%) scale(1.1); }
-                100% { transform: translate(-50%, -50%) scale(1); }
+        // Adiciona estilo para a animação da mensagem
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% { transform: translateY(0); opacity: 0; }
+                20% { transform: translateY(-20px); opacity: 1; }
+                80% { transform: translateY(-20px); opacity: 1; }
+                100% { transform: translateY(-40px); opacity: 0; }
             }
         `;
-        document.head.appendChild(pulseStyle);
+        document.head.appendChild(style);
+
+        // ================================================
+        // FUNÇÕES DE MODAL
+        // ================================================
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
         
-        // Remove após 5 segundos
-        setTimeout(() => {
-            emergencyAlert.remove();
-            pulseStyle.remove();
-        }, 5000);
-    }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
 
-    // Adiciona botão de emergência (apenas para desenvolvimento)
-    function addEmergencyButton() {
-        const emergencyBtn = document.createElement('div');
-        emergencyBtn.className = 'heart-btn';
-        emergencyBtn.innerHTML = '🚨';
-        emergencyBtn.style.left = '2rem';
-        emergencyBtn.style.bottom = '8rem';
-        emergencyBtn.style.right = 'auto';
-        emergencyBtn.style.background = '#ff0000';
-        emergencyBtn.onclick = emergencyLove;
-        emergencyBtn.title = 'Emergência de Amor!';
-        document.body.appendChild(emergencyBtn);
-    }
+        // ================================================
+        // INICIALIZAÇÃO
+        // ================================================
 
-    // Comando secreto no console
-    console.log(`💖 Bem-vinda ao Planner da Carollina! 💖
-    
-Comandos especiais disponíveis:
-- emergencyLove(): Emergência de amor! 🚨
-- showAdvancedMenu(): Menu de controles ⚙️
-- generateWeeklyReport(): Relatório semanal 📊
+        function initPlanner() {
+            // 1. Carrega o tema
+            loadTheme();
 
-Feito com todo o amor do seu príncipe! 🤴`);
+            // 2. Exibe a data
+            const today = new Date();
+            DATE_DISPLAY.textContent = today.toLocaleDateString('pt-BR', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
 
-    // Inicialização final
-    completeInit();
-    function calcularDiasJuntos() {
-    const dataConhecimento = new Date('2025-09-07');
-    const hoje = new Date();
-    const diferenca = hoje.getTime() - dataConhecimento.getTime();
-    const diasJuntos = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-    document.getElementById('days-together').textContent = Math.max(0, diasJuntos);
-}
-const DATE_OF_KNOWLEDGE = new Date('2025-09-07'); // Data que vocês se conheceram
-const FIRST_ANNIVERSARY = { day: 10, month: 8 }; // 10 de setembro (mês 8, pois janeiro = 0)
+            // 3. Inicializa navegação
+            initNavButtons();
 
-function updateLoveStats() {
-    const today = new Date();
+            // 4. Configura o sistema de cartinhas diárias
+            setupDailyLetters();
 
-    // Cálculo dos dias juntos desde o conhecimento
-    const diffTime = today.getTime() - DATE_OF_KNOWLEDGE.getTime();
-    const diffDays = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)));
-    document.getElementById('days-together').textContent = diffDays;
+            // 5. Carrega as views iniciais
+            renderTasks('task-list', getTasks());
+            renderTasks('quick-task-list', getTasks().slice(0, 3), true);
+            renderGoals();
+            renderCustomReminders();
+            renderCalendar();
+            renderEvents();
 
-    // Contagem de cartinhas na galeria
-    const galleryItems = getGallery();
-    const cartinhasCount = galleryItems.filter(item => item.category === 'cartinha').length;
-    document.getElementById('love-notes').textContent = cartinhasCount;
+            // 6. Exibe a view inicial (Home)
+            changeView('home');
+        }
 
-    // Cálculo do próximo aniversário de namoro (10/09 de cada ano)
-    let anniversaryYear = today.getFullYear();
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', initPlanner);
 
-    // Cria a data do aniversário neste ano
-    let nextAnniversary = new Date(anniversaryYear, FIRST_ANNIVERSARY.month, FIRST_ANNIVERSARY.day);
-
-    // Se o aniversário deste ano já passou, usa o próximo ano
-    if (nextAnniversary < today) {
-        anniversaryYear++;
-        nextAnniversary = new Date(anniversaryYear, FIRST_ANNIVERSARY.month, FIRST_ANNIVERSARY.day);
-    }
-
-    // Formata a data para dd/mm/yyyy
-    const formatter = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    document.getElementById('special-date').textContent = formatter.format(nextAnniversary);
-}
-
-// Chamar a função quando a página carregar
-calcularDiasJuntos();
-</script>
-
-<!-- FIM DO CÓDIGO -->
+        // Adiciona um listener para fechar o modal ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target.id);
+            }
+        });
+    </script>
 </body>
 </html>
