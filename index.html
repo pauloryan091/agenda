@@ -705,6 +705,34 @@
                 }
             }
         });
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            window.location.href = '/site';
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+            document.getElementById('password').value = '';
+        }
+    } catch (error) {
+        console.error('Erro no login:', error);
+        document.getElementById('login-error').style.display = 'block';
+    }
+});
     </script>
 </body>
 </html>

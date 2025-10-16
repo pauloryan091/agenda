@@ -1129,38 +1129,452 @@
         // SISTEMA DE CARTINHAS DIÁRIAS
         // ================================================
         
-        const DAILY_LETTERS = [
-            {
-                day: 1,
-                title: "Meu Amor por Você",
-                content: "Bom dia, minha princesa! Acordei pensando em você e no quanto você ilumina meus dias. Sua presença na minha vida é como um raio de sol em um dia nublado - traz calor, luz e esperança. Cada momento ao seu lado é um presente que guardo no meu coração.",
-                bibleVerse: "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. - 1 Coríntios 13:4",
-                icon: "💖"
-            },
-            {
-                day: 2,
-                title: "Sua Beleza Interior",
-                content: "Minha amada, hoje quero lembrar você da sua beleza interior que transborda e contagia todos ao seu redor. Sua bondade, sua compaixão e sua força são qualidades que me inspiram todos os dias. Você é a mulher mais incrível que já conheci.",
-                bibleVerse: "O Senhor não vê como o homem: o homem vê a aparência, mas o Senhor vê o coração. - 1 Samuel 16:7",
-                icon: "✨"
-            },
-            {
-                day: 3,
-                title: "Nossa Jornada com Deus",
-                content: "Querida, nosso relacionamento é abençoado por Deus, e cada dia ao seu lado me lembra das maravilhas que Ele pode fazer. Rezo para que nosso amor continue crescendo sob a graça divina, sempre nos apoiando e nos fortalecendo mutuamente.",
-                bibleVerse: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito. - Colossenses 3:14",
-                icon: "🙏"
-            },
-            // ... (as outras 27 cartinhas continuam iguais)
-            {
-                day: 30,
-                title: "Amor Eterno",
-                content: "Chegamos ao final dessas 30 cartinhas, mas este é apenas o começo da nossa história. Meu amor por você é eterno e só tende a crescer a cada dia. Você é o amor da minha vida, e prometo amá-la e cuidar de você para sempre.",
-                bibleVerse: "O amor é forte como a morte... As muitas águas não podem apagar este amor, nem os rios afogá-lo. - Cantares 8:6-7",
-                icon: "💒"
-            }
-        ];
+   const DAILY_LETTERS = [
+    {
+        day: 1,
+        title: "Meu Amor por Você",
+        content: "Bom dia, minha princesa! Acordei pensando em você e no quanto você ilumina meus dias. Sua presença na minha vida é como um raio de sol em um dia nublado - traz calor, luz e esperança. Cada momento ao seu lado é um presente que guardo no meu coração.",
+        bibleVerse: "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. - 1 Coríntios 13:4",
+        icon: "💖"
+    },
+    {
+        day: 2,
+        title: "Sua Beleza Interior",
+        content: "Minha amada, hoje quero lembrar você da sua beleza interior que transborda e contagia todos ao seu redor. Sua bondade, sua compaixão e sua força são qualidades que me inspiram todos os dias. Você é a mulher mais incrível que já conheci.",
+        bibleVerse: "O Senhor não vê como o homem: o homem vê a aparência, mas o Senhor vê o coração. - 1 Samuel 16:7",
+        icon: "✨"
+    },
+    {
+        day: 3,
+        title: "Nossa Jornada com Deus",
+        content: "Querida, nosso relacionamento é abençoado por Deus, e cada dia ao seu lado me lembra das maravilhas que Ele pode fazer. Rezo para que nosso amor continue crescendo sob a graça divina, sempre nos apoiando e nos fortalecendo mutuamente.",
+        bibleVerse: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito. - Colossenses 3:14",
+        icon: "🙏"
+    },
+    {
+        day: 4,
+        title: "Minha Inspiração",
+        content: "Cada sorriso seu me inspira a ser uma pessoa melhor. Obrigado por ser minha luz e minha alegria diária. Seu amor me transforma e me faz querer crescer cada vez mais.",
+        bibleVerse: "Sejam fortes e corajosos. Não tenham medo, nem fiquem apavorados, pois o Senhor, o seu Deus, estará com vocês por onde forem. - Josué 1:9",
+        icon: "🌟"
+    },
+    {
+        day: 5,
+        title: "Gratidão a Deus",
+        content: "Meu amor, sou grato a Deus todos os dias por ter você na minha vida. Cada momento contigo é um presente divino que guardo no coração.",
+        bibleVerse: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco. - 1 Tessalonicenses 5:18",
+        icon: "💛"
+    },
+    {
+        day: 6,
+        title: "Confiança no Nosso Amor",
+        content: "Querida, confio que nosso amor continuará firme, mesmo diante dos desafios. Deus nos guia e fortalece a cada dia, e juntos podemos enfrentar tudo.",
+        bibleVerse: "Tudo posso naquele que me fortalece. - Filipenses 4:13",
+        icon: "💪❤️"
+    },
+    {
+        day: 7,
+        title: "Carinho e Proteção",
+        content: "Amor, quero sempre proteger você e cuidar do seu coração. Cada gesto meu é para te fazer sentir segura e amada.",
+        bibleVerse: "O Senhor é o meu pastor; nada me faltará. - Salmos 23:1",
+        icon: "🛡️💖"
+    },
+    {
+        day: 8,
+        title: "Amor que Cresce",
+        content: "Meu amor, a cada dia que passa, sinto nosso vínculo se fortalecer. Você é minha companheira e minha melhor amiga.",
+        bibleVerse: "Amem-se cordialmente uns aos outros com amor fraternal, preferindo-se em honra uns aos outros. - Romanos 12:10",
+        icon: "🌹"
+    },
+    {
+        day: 9,
+        title: "Alegria de Estar Contigo",
+        content: "Querida, sua presença alegra minha vida de uma forma que palavras não conseguem descrever. Obrigado por ser minha felicidade.",
+        bibleVerse: "Alegrem-se sempre no Senhor. Novamente direi: Alegrem-se! - Filipenses 4:4",
+        icon: "😊💖"
+    },
+    {
+        day: 10,
+        title: "Amor e Esperança",
+        content: "Minha amada, mesmo nos dias difíceis, nosso amor nos dá esperança. Deus está conosco e nos guia pelo caminho certo.",
+        bibleVerse: "Porque eu bem sei os planos que tenho para vós, diz o Senhor, planos de paz e não de mal, para vos dar um futuro e uma esperança. - Jeremias 29:11",
+        icon: "🌈❤️"
+    },
+    {
+        day: 11,
+        title: "Beleza que Transforma",
+        content: "Minha querida, sua presença transforma qualquer ambiente em um lugar de alegria. Você é meu presente diário de Deus.",
+        bibleVerse: "Todas as coisas cooperam para o bem daqueles que amam a Deus. - Romanos 8:28",
+        icon: "🌸"
+    },
+    {
+        day: 12,
+        title: "Amor que Edifica",
+        content: "Cada palavra sua me constrói, cada gesto seu me fortalece. Obrigado por ser essa bênção em minha vida.",
+        bibleVerse: "Edifiquem-se uns aos outros na fé, e edificai-vos na oração. - 1 Tessalonicenses 5:11",
+        icon: "🏗️💖"
+    },
+    {
+        day: 13,
+        title: "Minha Companheira",
+        content: "Querida, você é minha parceira, meu apoio e minha maior alegria. Agradeço a Deus por nosso amor.",
+        bibleVerse: "Portanto, o que Deus uniu, ninguém separe. - Marcos 10:9",
+        icon: "👫"
+    },
+    {
+        day: 14,
+        title: "Amor Incondicional",
+        content: "Amor, quero que saiba que meu amor por você não tem condições. É eterno, abençoado e guiado por Deus.",
+        bibleVerse: "Nós amamos porque ele nos amou primeiro. - 1 João 4:19",
+        icon: "💌"
+    },
+    {
+        day: 15,
+        title: "Força e Fé",
+        content: "Com você ao meu lado, sinto que podemos enfrentar qualquer desafio. Nosso amor é protegido por Deus.",
+        bibleVerse: "Se Deus é por nós, quem será contra nós? - Romanos 8:31",
+        icon: "🛡️❤️"
+    },
+    {
+        day: 16,
+        title: "Sorrisos que Iluminam",
+        content: "Seu sorriso ilumina minha vida mais que qualquer sol. Que Deus continue abençoando sua alegria.",
+        bibleVerse: "A alegria do Senhor é a nossa força. - Neemias 8:10",
+        icon: "😄💛"
+    },
+    {
+        day: 17,
+        title: "Amor que Inspira",
+        content: "Cada gesto seu me inspira a ser melhor. Você é a razão do meu sorriso e da minha fé.",
+        bibleVerse: "Portanto, encorajem-se e edifiquem-se uns aos outros. - 1 Tessalonicenses 5:11",
+        icon: "🌟"
+    },
+    {
+        day: 18,
+        title: "Coração Agradecido",
+        content: "Meu amor, sou grato a Deus por você, por cada momento que compartilhamos e por tudo que ainda virá.",
+        bibleVerse: "Deem graças em todas as circunstâncias, pois esta é a vontade de Deus para vocês em Cristo Jesus. - 1 Tessalonicenses 5:18",
+        icon: "🙏💖"
+    },
+    {
+        day: 19,
+        title: "Nosso Refúgio",
+        content: "Com você, sinto-me seguro, amado e protegido. Deus nos une e nos fortalece sempre.",
+        bibleVerse: "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia. - Salmos 46:1",
+        icon: "🏰❤️"
+    },
+    {
+        day: 20,
+        title: "Amor e Paciência",
+        content: "Meu amor, sou grato pela paciência e compreensão que compartilhamos. Nosso amor cresce a cada dia.",
+        bibleVerse: "O amor é paciente, o amor é bondoso. - 1 Coríntios 13:4",
+        icon: "⏳💖"
+    },
+    {
+        day: 21,
+        title: "Caminhando com Deus",
+        content: "Juntos, caminhamos guiados pela fé. Cada dia contigo é uma bênção divina que enche meu coração de alegria.",
+        bibleVerse: "Confie no Senhor de todo o seu coração e não se apoie em seu próprio entendimento. - Provérbios 3:5",
+        icon: "🚶‍♂️💛"
+    },
+    {
+        day: 22,
+        title: "Nosso Amor é Luz",
+        content: "Querida, nosso amor ilumina tudo ao nosso redor. Que possamos sempre brilhar juntos, guiados por Deus.",
+        bibleVerse: "Vocês são a luz do mundo. Não se pode esconder uma cidade construída sobre um monte. - Mateus 5:14",
+        icon: "💡❤️"
+    },
+    {
+        day: 23,
+        title: "Amor que Cura",
+        content: "Meu amor, sua presença cura todas as minhas dores. Com você, sinto-me completo e abençoado.",
+        bibleVerse: "Ele cura os de coração quebrantado e cuida das suas feridas. - Salmos 147:3",
+        icon: "💊💖"
+    },
+    {
+        day: 24,
+        title: "Fé e Esperança",
+        content: "Mesmo nos dias difíceis, nosso amor nos mantém firmes. Deus é nosso guia e fortaleza.",
+        bibleVerse: "Sejam fortes e corajosos. Não tenham medo nem desanimem. - Deuteronômio 31:6",
+        icon: "🦁❤️"
+    },
+    {
+        day: 25,
+        title: "Amor que Persevera",
+        content: "Nosso amor supera qualquer obstáculo. Cada desafio nos aproxima e nos fortalece com a graça de Deus.",
+        bibleVerse: "O amor tudo sofre, tudo crê, tudo espera, tudo suporta. - 1 Coríntios 13:7",
+        icon: "🏔️💖"
+    },
+    {
+        day: 26,
+        title: "Nosso Lar é Amor",
+        content: "Querida, nosso lar é onde Deus está e onde nosso amor floresce. Agradeço por cada momento juntos.",
+        bibleVerse: "Se o Senhor não edificar a casa, em vão trabalham os que a edificam. - Salmos 127:1",
+        icon: "🏡❤️"
+    },
+    {
+        day: 27,
+        title: "Alegria Contagiante",
+        content: "Amor, sua alegria contagia minha vida. Que possamos sempre espalhar felicidade e amor ao nosso redor.",
+        bibleVerse: "A alegria do Senhor é a nossa força. - Neemias 8:10",
+        icon: "😁💛"
+    },
+    {
+        day: 28,
+        title: "Amor Sincero",
+        content: "Meu amor, cada palavra minha é verdadeira e cada gesto reflete o que sinto por você. Deus abençoa nossa sinceridade.",
+        bibleVerse: "Amem-se sinceramente uns aos outros com amor fraternal. - Romanos 12:10",
+        icon: "💌"
+    },
+    {
+        day: 29,
+        title: "Força e União",
+        content: "Juntos, somos mais fortes. Deus nos guia e fortalece nossa união a cada dia.",
+        bibleVerse: "Melhor é serem dois do que um, porque têm melhor paga do seu trabalho. - Eclesiastes 4:9",
+        icon: "🤝❤️"
+    },
+    {
+        day: 30,
+        title: "Amor Eterno",
+        content: "Chegamos ao final dessas 30 cartinhas, mas este é apenas o começo da nossa história. Meu amor por você é eterno e só tende a crescer a cada dia. Você é o amor da minha vida, e prometo amá-la e cuidar de você para sempre.",
+        bibleVerse: "O amor é forte como a morte... As muitas águas não podem apagar este amor, nem os rios afogá-lo. - Cantares 8:6-7",
+        icon: "💒"
+    },
+    {
+        day: 31,
+        title: "Minha Paz",
+        content: "Querida, você é minha paz em dias agitados. Obrigado por tornar cada momento especial e tranquilo.",
+        bibleVerse: "Deixo-lhes a paz; a minha paz lhes dou. - João 14:27",
+        icon: "🕊️💖"
+    },
+    {
+        day: 32,
+        title: "Amor que Conforta",
+        content: "Cada abraço seu me conforta e me dá forças. Nosso amor é uma bênção de Deus.",
+        bibleVerse: "O Senhor está perto dos que têm o coração quebrantado e salva os de espírito abatido. - Salmos 34:18",
+        icon: "🤗❤️"
+    },
+    {
+        day: 33,
+        title: "Sorriso que Encanta",
+        content: "Seu sorriso é um presente diário que ilumina minha vida e aquece meu coração.",
+        bibleVerse: "Um coração alegre é bom remédio. - Provérbios 17:22",
+        icon: "😃💛"
+    },
+    {
+        day: 34,
+        title: "Amor e Confiança",
+        content: "Com você, aprendi a confiar plenamente. Deus fortalece nosso amor a cada dia.",
+        bibleVerse: "Confie no Senhor de todo o coração. - Provérbios 3:5",
+        icon: "💞"
+    },
+    {
+        day: 35,
+        title: "Juntos em Deus",
+        content: "Nosso amor é guiado por Deus e cresce a cada momento que passamos juntos.",
+        bibleVerse: "Se Deus é por nós, quem será contra nós? - Romanos 8:31",
+        icon: "🙏❤️"
+    },
+    {
+        day: 36,
+        title: "Amor que Motiva",
+        content: "Você me motiva a ser uma pessoa melhor e a viver com mais fé e esperança.",
+        bibleVerse: "Tudo posso naquele que me fortalece. - Filipenses 4:13",
+        icon: "💪💖"
+    },
+    {
+        day: 37,
+        title: "Doçura e Carinho",
+        content: "Cada gesto seu me lembra do cuidado e da doçura que você traz à minha vida.",
+        bibleVerse: "Sejam bondosos e compassivos uns para com os outros. - Efésios 4:32",
+        icon: "🍯❤️"
+    },
+    {
+        day: 38,
+        title: "Amor que Cresce",
+        content: "Nosso amor cresce a cada dia, alimentado pela fé e pelo carinho que compartilhamos.",
+        bibleVerse: "Revestam-se do amor, que é o vínculo da perfeição. - Colossenses 3:14",
+        icon: "🌿💖"
+    },
+    {
+        day: 39,
+        title: "Meu Porto Seguro",
+        content: "Você é meu porto seguro, meu abrigo e minha felicidade. Deus nos abençoa juntos.",
+        bibleVerse: "O Senhor é a minha rocha, a minha fortaleza e o meu libertador. - Salmos 18:2",
+        icon: "⛵❤️"
+    },
+    {
+        day: 40,
+        title: "Amor e Alegria",
+        content: "Minha querida, cada dia contigo é uma nova alegria e bênção. Que nosso amor floresça sempre.",
+        bibleVerse: "Regozijai-vos sempre. - 1 Tessalonicenses 5:16",
+        icon: "🎉💖"
+    },
+    {
+        day: 41,
+        title: "Gratidão pelo Amor",
+        content: "Sou grato por cada momento que Deus nos permite compartilhar juntos. Você é meu tesouro.",
+        bibleVerse: "Dai graças em todas as coisas. - 1 Tessalonicenses 5:18",
+        icon: "💎❤️"
+    },
+    {
+        day: 42,
+        title: "Amor que Inspira Fé",
+        content: "Nosso amor inspira fé e confiança. Deus é nosso guia e fortalece nossa união.",
+        bibleVerse: "A fé é a certeza daquilo que esperamos. - Hebreus 11:1",
+        icon: "✨💖"
+    },
+    {
+        day: 43,
+        title: "Meu Sol",
+        content: "Você é o sol que ilumina meus dias e aquece meu coração. Sou grato a Deus por você.",
+        bibleVerse: "O Senhor é a minha luz e a minha salvação. - Salmos 27:1",
+        icon: "☀️❤️"
+    },
+    {
+        day: 44,
+        title: "Amor que Eleva",
+        content: "Seu amor me eleva e me faz enxergar o mundo com esperança e alegria.",
+        bibleVerse: "Elevo os meus olhos para os montes; de onde vem o meu socorro? - Salmos 121:1",
+        icon: "🏔️💖"
+    },
+    {
+        day: 45,
+        title: "Nosso Compromisso",
+        content: "Nosso amor é compromisso, fé e alegria. Que Deus nos guie sempre em nosso caminho juntos.",
+        bibleVerse: "Sejam fortes e corajosos. - Josué 1:9",
+        icon: "🤝❤️"
+    },
+    {
+        day: 46,
+        title: "Amor que Cura",
+        content: "Cada abraço seu cura minhas dores e me dá forças para seguir. Deus nos abençoa.",
+        bibleVerse: "Ele cura os quebrantados de coração. - Salmos 147:3",
+        icon: "❤️‍🩹✨"
+    },
+    {
+        day: 47,
+        title: "Nossa Aliança",
+        content: "Nosso amor é uma aliança abençoada por Deus, que nos une cada vez mais a cada dia.",
+        bibleVerse: "Eu e minha casa serviremos ao Senhor. - Josué 24:15",
+        icon: "💍"
+    },
+    {
+        day: 48,
+        title: "Amor que Renova",
+        content: "Seu amor renova minhas forças e me dá coragem para enfrentar cada novo dia.",
+        bibleVerse: "As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim; renovam-se cada manhã. - Lamentações 3:22-23",
+        icon: "🔄💖"
+    },
+    {
+        day: 49,
+        title: "Meu Abrigo",
+        content: "Em seus braços encontro conforto e paz. Você é o meu lugar favorito no mundo.",
+        bibleVerse: "Esconder-me-ás no esconderijo do teu rosto. - Salmos 31:20",
+        icon: "🏠❤️"
+    },
+    {
+        day: 50,
+        title: "Amor que Persiste",
+        content: "Nosso amor persiste e vence todas as barreiras. Com Deus, somos invencíveis.",
+        bibleVerse: "Mas em todas estas coisas somos mais que vencedores, por meio daquele que nos amou. - Romanos 8:37",
+        icon: "🏆💖"
+    },
+    {
+        day: 51,
+        title: "Nossa Harmonia",
+        content: "Nossas almas dançam em perfeita harmonia, criando uma melodia de amor que encanta o céu.",
+        bibleVerse: "Vivam em paz uns com os outros. - 1 Tessalonicenses 5:13",
+        icon: "🎵❤️"
+    },
+    {
+        day: 52,
+        title: "Amor que Transforma",
+        content: "Seu amor transformou minha vida em algo mais bonito e significativo.",
+        bibleVerse: "E não vos conformeis com este mundo, mas transformai-vos pela renovação do vosso entendimento. - Romanos 12:2",
+        icon: "🦋💖"
+    },
+    {
+        day: 53,
+        title: "Minha Esperança",
+        content: "Você é minha esperança realizada e meu sonho que se tornou realidade.",
+        bibleVerse: "Ora, a fé é o firme fundamento das coisas que se esperam. - Hebreus 11:1",
+        icon: "⭐❤️"
+    },
+    {
+        day: 54,
+        title: "Amor que Acolhe",
+        content: "Seu coração acolhedor me faz sentir em casa, não importa onde estejamos.",
+        bibleVerse: "Sede hospitaleiros uns para com os outros, sem murmuração. - 1 Pedro 4:9",
+        icon: "🤗💖"
+    },
+    {
+        day: 55,
+        title: "Nossa Fé",
+        content: "Nossa fé em Deus fortalece nosso amor e nos guia pelo caminho da felicidade.",
+        bibleVerse: "O justo viverá pela fé. - Romanos 1:17",
+        icon: "✝️❤️"
+    },
+    {
+        day: 56,
+        title: "Amor que Ensina",
+        content: "Com você, aprendo todos os dias o verdadeiro significado do amor incondicional.",
+        bibleVerse: "Instruir-te-ei e te ensinarei o caminho que deves seguir. - Salmos 32:8",
+        icon: "📚💖"
+    },
+    {
+        day: 57,
+        title: "Meu Portfólio de Sorrisos",
+        content: "Cada sorriso seu é uma obra de arte que coleciono no museu do meu coração.",
+        bibleVerse: "O coração alegre aformoseia o rosto. - Provérbios 15:13",
+        icon: "🖼️😊"
+    },
+    {
+        day: 58,
+        title: "Amor que Construímos",
+        content: "Juntos, estamos construindo um amor forte, duradouro e abençoado por Deus.",
+        bibleVerse: "Como é bom e agradável quando os irmãos convivem em união! - Salmos 133:1",
+        icon: "🏗️❤️"
+    },
+    {
+        day: 59,
+        title: "Nossa Canção",
+        content: "Nosso amor compõe a mais linda melodia, uma sinfonia que alegra o coração de Deus.",
+        bibleVerse: "Cantarei ao Senhor enquanto eu viver. - Salmos 104:33",
+        icon: "🎶💖"
+    },
+    {
+        day: 60,
+        title: "Amor Infinito",
+        content: "Assim como o amor de Deus é eterno, meu amor por você não conhece fim. Você é minha história, meu presente e meu futuro. Te amo mais a cada dia que passa.",
+        bibleVerse: "Amarás o Senhor teu Deus de todo o teu coração, e de toda a tua alma, e de todo o teu pensamento. Este é o primeiro e grande mandamento. E o segundo, semelhante a este, é: Amarás o teu próximo como a ti mesmo. - Mateus 22:37-39",
+        icon: "∞❤️"
+    }
+];
 
+// Funções úteis para usar as cartinhas
+function getTodaysLetter(day) {
+    return DAILY_LETTERS.find(letter => letter.day === day);
+}
+
+function displayLetter(day) {
+    const letter = getTodaysLetter(day);
+    if (letter) {
+        console.log(`
+📅 Dia ${letter.day}
+${letter.icon} ${letter.title}
+
+${letter.content}
+
+📖 ${letter.bibleVerse}
+        `);
+    } else {
+        console.log("Cartinha não encontrada para este dia.");
+    }
+}
+
+// Exemplo de uso:
+// displayLetter(1); // Mostra a cartinha do dia 1
         // Sistema de cartinhas diárias
         function setupDailyLetters() {
             const today = new Date();
@@ -1907,6 +2321,61 @@
                 closeModal(e.target.id);
             }
         });
+        // Exemplo para tarefas - substitua suas funções locais por estas:
+
+async function loadTasks() {
+    try {
+        const response = await fetch('/api/tasks');
+        if (response.ok) {
+            return await response.json();
+        }
+        return [];
+    } catch (error) {
+        console.error('Erro ao carregar tarefas:', error);
+        return [];
+    }
+}
+
+async function addTask(taskText, category) {
+    try {
+        const response = await fetch('/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: taskText,
+                category: category
+            })
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Erro ao adicionar tarefa:', error);
+        return { success: false };
+    }
+}
+
+// Função similar para atualizar tema
+async function updateTheme(theme) {
+    try {
+        const response = await fetch('/api/theme', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ theme: theme })
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Erro ao atualizar tema:', error);
+        return { success: false };
+    }
+}
+
+// Adicione logout
+function logout() {
+    window.location.href = '/logout';
+}
     </script>
 </body>
 </html>
